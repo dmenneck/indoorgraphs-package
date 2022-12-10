@@ -1,4 +1,0 @@
-run_tests: 
-  image: node
-  script: 
-    - npm run test
