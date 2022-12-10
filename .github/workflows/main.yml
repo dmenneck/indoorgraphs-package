@@ -1,0 +1,16 @@
+name: CI
+on: push
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      # Install Node 12
+      - name: Setup Node
+        with:
+          node-version: 12
+
+      # Install dependencies
+      - run: npm install
+
+      # Run tests
+      - run: npm test
