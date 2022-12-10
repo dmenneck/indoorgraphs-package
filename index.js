@@ -1,12 +1,30 @@
 const { saveGraph } = require("./helpers");
 const { getShortestPath } = require("./dijkstra");
 
+const defaultRoutingOptions = {
+    doorOptions: {}, 
+    pathWidth: 0, 
+    pathSlopeAngle: 0, 
+    showPathWithoutStairs: false, 
+    preferElevator: false
+}
+
 class IndoorGraphs {
     nodes;
     options;
-    constructor(nodes, options) {
+
+    constructor(nodes, options = defaultRoutingOptions) {
+        if (Object.entries(options).length === 0) {
+            this.options = defaultRoutingOptions;
+        } else {
+            this.options = options;
+        }
+
+        if (!nodes) {
+            return { invalid:true };
+        }
+
         this.nodes = nodes;
-        this.options = options;
     }
 
     getNodes() {
@@ -25,8 +43,6 @@ class IndoorGraphs {
         this.options = options;
     }
 
-    getPathInstructions(pathNodes) {}
-
     getRoute(start, dest) {
         if (!this.nodes) return false;
         if (!start || !dest) {
@@ -34,7 +50,16 @@ class IndoorGraphs {
         }
 
         const graph = saveGraph(this.nodes, this.options);
-        return getShortestPath(graph, `${start}`, `${dest}`)
+        const shortestPath = getShortestPath(graph, `${start}`, `${dest}`)
+
+        // remove "floorChangeWithStairsOrElevator" if only one floor
+        if (shortestPath[2] && shortestPath[2].floors.length === 1) delete shortestPath[2].floorChangeWithStairsOrElevator;
+
+        // wenn nichts gefunden, dann fahrstuhl dazu packen!
+        // const graph = saveGraph(this.nodes, this.options);
+        // const shortestPath = getShortestPath(graph, `${start}`, `${dest}`)
+
+        return shortestPath;
     }
 }
 

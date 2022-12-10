@@ -17,7 +17,7 @@ const saveGraph = (nodes, options) => {
 const buildGraph = (nodes, options) => {
     const nodesArray = []
     let filteredNodes = nodes;
-  
+
     if (Object.keys(options).length > 0) {
       filteredNodes = removeEdges(nodes, options)
     }
@@ -56,7 +56,7 @@ const buildGraph = (nodes, options) => {
   
       nodesArray.push({
         id: node.id,
-        type: node.attribute,
+        type: node.type,
         coords: node.currentCoordinates,
         adjacentLinks
       })
@@ -67,39 +67,41 @@ const buildGraph = (nodes, options) => {
 
 const removeEdges = (nodes, {doorOptions, pathWidth, pathSlopeAngle, showPathWithoutStairs, preferElevator}) => {
     const copiedNodes = JSON.parse(JSON.stringify(nodes));
-    const doorOptionsFilter = Object.entries(doorOptions);
+
+    const doorOptionsFilter = doorOptions && Object.entries(doorOptions);
   
     // extract relevant filter options
-    const doorOptionsFiltered = doorOptionsFilter.filter((option) => {
+    const doorOptionsFiltered = doorOptions && doorOptionsFilter.filter((option) => {
       if (option[1]) return option;
     }) 
 
-      // remove elevator nodes if user preferred stairs over elevator
+    // remove elevator nodes if user preferred stairs over elevator
     !preferElevator && Object.entries(copiedNodes).map(([id, node]) => {
       if (node.type === "Elevator") delete copiedNodes[id]
     })
-
   
     // remove nodes based on door filters
-    Object.entries(copiedNodes).map(([id, node]) => {
-      const doorOptions = node.doorOptions;
-  
-      if (!doorOptions) return;
-  
-      doorOptions && doorOptionsFiltered.map((option) => {
-        if (option[1].length === 2) {
-          if (option[1][1] === "max") {
-            if (+doorOptions[option[0]] > +option[1][0]) delete copiedNodes[id];
+    if (doorOptions) {
+      Object.entries(copiedNodes).map(([id, node]) => {
+        const doorOptions = node.doorOptions;
+    
+        if (!doorOptions) return;
+    
+        doorOptions && doorOptionsFiltered.map((option) => {
+          if (option[1].length === 2) {
+            if (option[1][1] === "max") {
+              if (+doorOptions[option[0]] > +option[1][0]) delete copiedNodes[id];
+            }
+            if (option[1][1] === "min") {
+              if (+doorOptions[option[0]] < +option[1][0]) delete copiedNodes[id];
+            }
+          } else if (doorOptions[option[0]] === false && option[1]) {
+            delete copiedNodes[id];
           }
-          if (option[1][1] === "min") {
-            if (+doorOptions[option[0]] < +option[1][0]) delete copiedNodes[id];
-          }
-        } else if (doorOptions[option[0]] === false && option[1]) {
-          delete copiedNodes[id];
-        }
+        })
       })
-    })
-  
+    }
+    
     // remove nodes based on path filter
     Object.entries(copiedNodes).map(([id, attributes]) => {
       Object.entries(attributes.adjacentNodes).map(([adjacentNodeID, adjacentNodeAttributes]) => {
@@ -123,4 +125,4 @@ const removeEdges = (nodes, {doorOptions, pathWidth, pathSlopeAngle, showPathWit
     return copiedNodes;
 }
 
-module.exports = {saveGraph, saveGraph, removeEdges};
+module.exports = {saveGraph, removeEdges};

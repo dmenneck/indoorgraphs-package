@@ -335,7 +335,7 @@ const constructFinalRoutingInstructions = (distancesSum, timeToTravel, instructi
         finalTextInstructions,
         distancesSum,
         timeToTravel,
-        stairsOrElevator: elevator ? "elevator" : "stairs",
+        floorChangeWithStairsOrElevator: elevator ? "elevator" : "stairs",
     }
 
     if (uniqueFloors.length > 0) {
