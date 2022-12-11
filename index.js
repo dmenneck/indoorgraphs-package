@@ -43,6 +43,10 @@ class IndoorGraphs {
         this.options = options;
     }
 
+    getFilterAttributes() {
+        
+    }
+
     getRoute(start, dest) {
         if (!this.nodes) return false;
         if (!start || !dest) {
