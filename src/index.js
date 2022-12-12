@@ -1,29 +1,26 @@
-const { saveGraph } = require("./helpers");
-const { getShortestPath } = require("./dijkstra");
+const { saveGraph } = require("../helpers");
+const { getShortestPath } = require("../dijkstra");
 
 const defaultRoutingOptions = {
     doorOptions: {}, 
-    pathWidth: 0, 
-    pathSlopeAngle: 0, 
-    showPathWithoutStairs: false, 
+    pathOptions: {},
     preferElevator: false
 }
+
+const defaultActiveFilter = {}
 
 class IndoorGraphs {
     nodes;
     options;
+    activeFilter
 
-    constructor(nodes, options = defaultRoutingOptions) {
-        if (Object.entries(options).length === 0) {
-            this.options = defaultRoutingOptions;
-        } else {
-            this.options = options;
-        }
-
+    constructor(nodes, options = defaultRoutingOptions, filter = defaultActiveFilter) {
         if (!nodes) {
             return { invalid:true };
         }
 
+        this.options = options;
+        this.filter = filter;
         this.nodes = nodes;
     }
 
@@ -43,9 +40,7 @@ class IndoorGraphs {
         this.options = options;
     }
 
-    getFilterAttributes() {
-        
-    }
+    getFilterAttributes() {}
 
     getRoute(start, dest) {
         if (!this.nodes) return false;
@@ -53,7 +48,7 @@ class IndoorGraphs {
             return [undefined, undefined, undefined, "Please enter a start and destination"]
         }
 
-        const graph = saveGraph(this.nodes, this.options);
+        const graph = saveGraph(this.nodes, this.options, this.activeFilter);
         const shortestPath = getShortestPath(graph, `${start}`, `${dest}`)
 
         // remove "floorChangeWithStairsOrElevator" if only one floor

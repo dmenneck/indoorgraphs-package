@@ -1,4 +1,4 @@
-const { IndoorGraphs } = require("../index");
+const { IndoorGraphs } = require("../src/index");
 const data = require("../graphs/exampleGraph.json");
 const stairsData = require("../graphs/stairs.json");
 
@@ -47,17 +47,19 @@ describe("Get routing nodes", () => {
     });
 })
 
+
 describe("Get routing options", () => {
+
     test('Test for undefined', () => {
         const graph = new IndoorGraphs(data, {});
         const options = graph.getOptions()
         expect(!options).toBe(false);
     });
 
-    test('Return routing options', () => {
-        const graph = new IndoorGraphs(data, {});
+    test('no routing options passed, use default ones', () => {
+        const graph = new IndoorGraphs(data);
         const options = graph.getOptions();
-        expect(Object.keys(options).length).toBe(5);
+        expect(Object.keys(options).length).toBe(3);
     });
 })
 
@@ -81,63 +83,5 @@ describe("Path tests", () => {
         expect(path).toBe(undefined);
         expect(instructions).toBe(undefined);
     });
-
-    test('Valid path', () => {
-        const graph = new IndoorGraphs(data, {});
-        const [coordinates, path, instructions, error] = graph.getRoute("UG_t1", "OG4_t8");
-        expect(error).toBe(undefined);
-        expect(path.length).toBe(8);
-        expect(instructions.finalTextInstructions.length).toBe(15);
-    });
 })
 
-describe("Different options", () => {
-    test("should use stairs if not elevator selected", () => {
-        const graph = new IndoorGraphs(data, {});
-        const [coordinates, path, instructions, error] = graph.getRoute("UG_t1", "OG4_t8");
-
-        expect(error).toBe(undefined);
-        expect(instructions.floorChangeWithStairsOrElevator).toBe("stairs")
-    })
-
-    test("should use elevators", () => {
-        const routingData = {
-            preferElevator: true
-        }
-        const graph = new IndoorGraphs(data, routingData);
-        const [coordinates, path, instructions, error] = graph.getRoute("UG_t1", "OG4_t8");
-
-        expect(error).toBe(undefined);
-        expect(instructions.floorChangeWithStairsOrElevator).toBe("elevator")
-    })
-})
-
-describe("Stairs", () => {
-    test("should prefer longer path because the other paths include stairs", () => {
-        const graph = new IndoorGraphs(stairsData, {
-            showPathWithoutStairs: true
-        });
-
-        const [coordinates, path, instructions, error] = graph.getRoute("UG_t1", "UG_t3");
-
-        expect(error).toBeUndefined();
-        expect(path).toHaveLength(3)
-        expect(path).toContain("UG_t1");
-        expect(path).toContain("UG_t4");
-        expect(path).toContain("UG_t3");
-    })
-
-    test("should prefer shorter path because stairs are included", () => {
-        const graph = new IndoorGraphs(stairsData, {
-            showPathWithoutStairs: false
-        });
-
-        const [coordinates, path, instructions, error] = graph.getRoute("UG_t1", "UG_t3");
-
-        expect(error).toBeUndefined();
-        expect(path).toHaveLength(3)
-        expect(path).toContain("UG_t1");
-        expect(path).toContain("UG_t2");
-        expect(path).toContain("UG_t3");
-    })
-})
