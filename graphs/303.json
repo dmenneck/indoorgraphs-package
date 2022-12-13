@@ -1,0 +1,1157 @@
+{
+   "EG_s1": {
+      "currentCoordinates": [
+         6.937560141254855,
+         50.92701494182239
+      ],
+      "id": "EG_s1",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s2": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s2": {
+      "currentCoordinates": [
+         6.937534912332427,
+         50.92700522759279
+      ],
+      "id": "EG_s2",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s1": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s3": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s24": {
+            "attributes": {}
+         }
+      }
+   },
+   "EG_s3": {
+      "currentCoordinates": [
+         6.937518163176803,
+         50.92699203804776
+      ],
+      "id": "EG_s3",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s2": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s4": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s5": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s4": {
+      "currentCoordinates": [
+         6.937494550987273,
+         50.92700297955176
+      ],
+      "id": "EG_s4",
+      "type": "Elevator",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s3": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "OG1_s4": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "OG1_s4": {
+      "currentCoordinates": [
+         6.937494550987273,
+         50.92700297955176
+      ],
+      "id": "OG1_s4",
+      "type": "Elevator",
+      "dest": "OG1",
+      "level": "OG1",
+      "adjacentNodes": {
+         "EG_s4": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "OG1_s28": {
+            "attributes": {}
+         }
+      }
+   },
+   "EG_s5": {
+      "currentCoordinates": [
+         6.9375003676112765,
+         50.9269767743198
+      ],
+      "id": "EG_s5",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s3": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s6": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s6": {
+      "currentCoordinates": [
+         6.9374908648858105,
+         50.92696638242904
+      ],
+      "id": "EG_s6",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s5": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s7": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s9": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s7": {
+      "currentCoordinates": [
+         6.937525873569213,
+         50.92695030609215
+      ],
+      "id": "EG_s7",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s6": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.03": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s8": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.03": {
+      "currentCoordinates": [
+         6.93751628108892,
+         50.92693950632466
+      ],
+      "id": "EG_0.03",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s7": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s8": {
+      "currentCoordinates": [
+         6.937553295550922,
+         50.9269381926012
+      ],
+      "id": "EG_s8",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s7": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.02": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.01": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.02": {
+      "currentCoordinates": [
+         6.937544425408902,
+         50.926925247782094
+      ],
+      "id": "EG_0.02",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s8": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.01": {
+      "currentCoordinates": [
+         6.937578729444591,
+         50.92692374972356
+      ],
+      "id": "EG_0.01",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s8": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s9": {
+      "currentCoordinates": [
+         6.937467292628912,
+         50.926976515425906
+      ],
+      "id": "EG_s9",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s6": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.04": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s10": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.04": {
+      "currentCoordinates": [
+         6.937458454273982,
+         50.926968100199275
+      ],
+      "id": "EG_0.04",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s9": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s10": {
+      "currentCoordinates": [
+         6.937434740746112,
+         50.926991002975825
+      ],
+      "id": "EG_s10",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s9": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.20": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s11": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.20": {
+      "currentCoordinates": [
+         6.937446895756957,
+         50.92700278866275
+      ],
+      "id": "EG_0.20",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s10": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s11": {
+      "currentCoordinates": [
+         6.937424637053479,
+         50.92699267570586
+      ],
+      "id": "EG_s11",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s10": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s12": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s12": {
+      "currentCoordinates": [
+         6.937377615892543,
+         50.92700998249569
+      ],
+      "id": "EG_s12",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s11": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.05": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s13": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.05": {
+      "currentCoordinates": [
+         6.9373625066762585,
+         50.926996669643444
+      ],
+      "id": "EG_0.05",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s12": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s13": {
+      "currentCoordinates": [
+         6.937350869898635,
+         50.92702337847703
+      ],
+      "id": "EG_s13",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s12": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.19": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s14": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.19": {
+      "currentCoordinates": [
+         6.937361185592809,
+         50.927031240667276
+      ],
+      "id": "EG_0.19",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s13": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s14": {
+      "currentCoordinates": [
+         6.9373187930843585,
+         50.92703873761667
+      ],
+      "id": "EG_s14",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s13": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.06": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s15": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.06": {
+      "currentCoordinates": [
+         6.937302483865923,
+         50.927028619255935
+      ],
+      "id": "EG_0.06",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s14": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s15": {
+      "currentCoordinates": [
+         6.937334246902525,
+         50.92705185741988
+      ],
+      "id": "EG_s15",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s14": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.18": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s16": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.18": {
+      "currentCoordinates": [
+         6.937348962741491,
+         50.92706486349681
+      ],
+      "id": "EG_0.18",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s15": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s16": {
+      "currentCoordinates": [
+         6.9373002823692085,
+         50.92706585112714
+      ],
+      "id": "EG_s16",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s15": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s17": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s17": {
+      "currentCoordinates": [
+         6.9372887883587735,
+         50.927073341950546
+      ],
+      "id": "EG_s17",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s16": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.17": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s18": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.17": {
+      "currentCoordinates": [
+         6.937299947793437,
+         50.92708272350828
+      ],
+      "id": "EG_0.17",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s17": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s18": {
+      "currentCoordinates": [
+         6.937259871549163,
+         50.92708730924474
+      ],
+      "id": "EG_s18",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s17": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.16": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.07": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s19": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.16": {
+      "currentCoordinates": [
+         6.937271175838601,
+         50.927096224326135
+      ],
+      "id": "EG_0.16",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s18": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.07": {
+      "currentCoordinates": [
+         6.93724466882471,
+         50.927076808894185
+      ],
+      "id": "EG_0.07",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s18": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s19": {
+      "currentCoordinates": [
+         6.9372192140860935,
+         50.927108552839684
+      ],
+      "id": "EG_s19",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s18": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.15": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s20": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.15": {
+      "currentCoordinates": [
+         6.937230862806215,
+         50.92711499123902
+      ],
+      "id": "EG_0.15",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s19": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s20": {
+      "currentCoordinates": [
+         6.937185692638152,
+         50.92712254733695
+      ],
+      "id": "EG_s20",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s19": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.14": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.08": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s21": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.14": {
+      "currentCoordinates": [
+         6.937196769248797,
+         50.92713301521505
+      ],
+      "id": "EG_0.14",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s20": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.08": {
+      "currentCoordinates": [
+         6.937174379214682,
+         50.92711396407904
+      ],
+      "id": "EG_0.08",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s20": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s21": {
+      "currentCoordinates": [
+         6.937160814458928,
+         50.927134921217004
+      ],
+      "id": "EG_s21",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s20": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.09": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s22": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.09": {
+      "currentCoordinates": [
+         6.937147222024006,
+         50.92712672742846
+      ],
+      "id": "EG_0.09",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s21": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s22": {
+      "currentCoordinates": [
+         6.9371528931440425,
+         50.92713961628459
+      ],
+      "id": "EG_s22",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s21": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.13": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_s23": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.13": {
+      "currentCoordinates": [
+         6.937164395152706,
+         50.92714599053622
+      ],
+      "id": "EG_0.13",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s22": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s23": {
+      "currentCoordinates": [
+         6.937113624742042,
+         50.92715770849878
+      ],
+      "id": "EG_s23",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s22": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.11": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         },
+         "EG_0.10": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.11": {
+      "currentCoordinates": [
+         6.937135227302483,
+         50.927179038297936
+      ],
+      "id": "EG_0.11",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s23": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_0.10": {
+      "currentCoordinates": [
+         6.937083741576175,
+         50.92713786071434
+      ],
+      "id": "EG_0.10",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s23": {
+            "attributes": {
+               "pathHasStairs": false
+            }
+         }
+      }
+   },
+   "EG_s24": {
+      "currentCoordinates": [
+         6.937482890234794,
+         50.92703001197572
+      ],
+      "id": "EG_s24",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s2": {
+            "attributes": {}
+         },
+         "EG_s25": {
+            "attributes": {}
+         }
+      }
+   },
+   "EG_s25": {
+      "currentCoordinates": [
+         6.937487790121966,
+         50.92703411216206
+      ],
+      "id": "EG_s25",
+      "type": "Node",
+      "level": "EG",
+      "adjacentNodes": {
+         "EG_s24": {
+            "attributes": {}
+         },
+         "OG1_s26": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s26": {
+      "currentCoordinates": [
+         6.937493779509353,
+         50.92703888678045
+      ],
+      "id": "OG1_s26",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "EG_s25": {
+            "attributes": {}
+         },
+         "OG1_s27": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s27": {
+      "currentCoordinates": [
+         6.937547288232738,
+         50.92701391893792
+      ],
+      "id": "OG1_s27",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s26": {
+            "attributes": {}
+         },
+         "OG1_1.01": {
+            "attributes": {}
+         },
+         "OG1_s28": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.01": {
+      "currentCoordinates": [
+         6.937560641859045,
+         50.92700469866432
+      ],
+      "id": "OG1_1.01",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s27": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s28": {
+      "currentCoordinates": [
+         6.9375179617199025,
+         50.92699255968472
+      ],
+      "id": "OG1_s28",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s27": {
+            "attributes": {}
+         },
+         "OG1_s4": {
+            "attributes": {}
+         },
+         "OG1_s29": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s29": {
+      "currentCoordinates": [
+         6.937491641813339,
+         50.926969589658455
+      ],
+      "id": "OG1_s29",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s28": {
+            "attributes": {}
+         },
+         "OG1_s30": {
+            "attributes": {}
+         },
+         "OG1_s32": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s30": {
+      "currentCoordinates": [
+         6.937526609411913,
+         50.926951177790045
+      ],
+      "id": "OG1_s30",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s29": {
+            "attributes": {}
+         },
+         "OG1_1.07": {
+            "attributes": {}
+         },
+         "OG1_s31": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.07": {
+      "currentCoordinates": [
+         6.93751635156912,
+         50.92693981025272
+      ],
+      "id": "OG1_1.07",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s30": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s31": {
+      "currentCoordinates": [
+         6.937557481532176,
+         50.92693696921228
+      ],
+      "id": "OG1_s31",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s30": {
+            "attributes": {}
+         },
+         "OG1_1.06": {
+            "attributes": {}
+         },
+         "OG1_1.04": {
+            "attributes": {}
+         },
+         "OG1_1.05": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.06": {
+      "currentCoordinates": [
+         6.937545249708354,
+         50.92692594075913
+      ],
+      "id": "OG1_1.06",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s31": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.04": {
+      "currentCoordinates": [
+         6.937584592157643,
+         50.92692921545415
+      ],
+      "id": "OG1_1.04",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s31": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.05": {
+      "currentCoordinates": [
+         6.937573062965997,
+         50.92692022211898
+      ],
+      "id": "OG1_1.05",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s31": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_s32": {
+      "currentCoordinates": [
+         6.93746768185402,
+         50.92697716351472
+      ],
+      "id": "OG1_s32",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s29": {
+            "attributes": {}
+         },
+         "OG1_1.08": {
+            "attributes": {}
+         }
+      }
+   },
+   "OG1_1.08": {
+      "currentCoordinates": [
+         6.93745934414518,
+         50.9269676875264
+      ],
+      "id": "OG1_1.08",
+      "type": "Node",
+      "level": "OG1",
+      "adjacentNodes": {
+         "OG1_s32": {
+            "attributes": {}
+         }
+      }
+   }
+}

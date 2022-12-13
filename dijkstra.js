@@ -261,7 +261,9 @@ const getTurnType = (from, to) => {
     if (from === "East" && to === "North") instruction = "left"
     if (from === "East" && to === "West") instruction = "Straight"
     if (from === "East" && to === "South") instruction = "right"
-  
+    if (from === "East" && to === "NorthEast") instruction = "slight left"
+    if (from === "East" && to === "SouthEast") instruction = "slight right"
+
     if (from === "North" && to === "East") instruction = "right"
     if (from === "North" && to === "West") instruction = "left"
     if (from === "North" && to === "South") instruction = "Straight"
@@ -269,35 +271,38 @@ const getTurnType = (from, to) => {
     if (from === "South" && to === "North") instruction = "Straight"
     if (from === "South" && to === "West") instruction = "right"
     if (from === "South" && to === "East") instruction = "left"
-  
+    if (from === "South" && to === "SouthWest") instruction = "slight right"
+    if (from === "South" && to === "SouthEast") instruction = "slight left"
+
     if (from === "West" && to === "North") instruction = "right"
     if (from === "West" && to === "East") instruction = "Straight"
     if (from === "West" && to === "South") instruction = "left"
+    if (from === "West" && to === "SouthWest") instruction = "slight left"
+    if (from === "West" && to === "NorthWest") instruction = "slight right"
 
     if (from === "North" && to === "NorthEast") instruction = "slight right"
     if (from === "North" && to === "NorthWest") instruction = "slight left"
 
     if (from === "SouthEast" && to === "South") instruction = "slight right"
-    if (from === "SouthWest" && to === "South") instruction = "slight left"
-
-    if (from === "West" && to === "SouthWest") instruction = "slight left"
-    if (from === "West" && to === "NorthWest") instruction = "slight right"
-
     if (from === "SouthEast" && to === "East") instruction = "slight left"
+    if (from === "SouthEast" && to === "SouthWest") instruction = "right"
+    if (from === "SouthEast" && to === "South") instruction = "slight right"
+    if (from === "SouthEast" && to === "NorthEast") instruction = "right"
 
-    if (from === "South" && to === "SouthWest") instruction = "slight right"
+    if (from === "NorthEast" && to === "SouthEast") instruction = "left"
+    if (from === "NorthEast" && to === "NorthWest") instruction = "left"
     if (from === "NorthEast" && to === "North") instruction = "slight left"
+    if (from === "NorthEast" && to === "East") instruction = "slight right"
 
-    if (from === "South" && to === "SouthEast") instruction = "slight left"
     if (from === "NorthWest" && to === "North") instruction = "slight right"
     if (from === "NorthWest" && to === "West") instruction = "slight left"
+    if (from === "NorthWest" && to === "NorthEast") instruction = "right"
+    if (from === "NorthWest" && to === "SouthWest") instruction = "left"
 
-    if (from === "East" && to === "NorthEast") instruction = "slight left"
+
+    if (from === "SouthWest" && to === "South") instruction = "slight left"
     if (from === "SouthWest" && to === "West") instruction = "slight right"
-
-    if (from === "NorthEast" && to === "East") instruction = "slight right"
-    if (from === "SouthEast" && to === "South") instruction = "slight right"
-    if (from === "East" && to === "SouthEast") instruction = "slight right"
+    if (from === "SouthWest" && to === "SouthEast") instruction = "left"
 
     return instruction;
 }
