@@ -1,6 +1,0 @@
-describe("Active filter", () => {
-    test("", () => {
-
-    })
-})
-

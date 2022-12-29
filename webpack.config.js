@@ -1,10 +1,23 @@
-const path = require("path");
+const path = require('path')
 
 module.exports = {
-    output: {
-        filename: "indoorgraphs.js",
-        path: path.resolve(__dirname, "dist"),
-        library: "Awesome",
-        libraryTarget: "umd"
-    }
+  entry: {
+    indoorgraphs: path.resolve(__dirname, 'src/index.ts')
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+    library: "IndoorGraphs",
+    libraryTarget: 'commonjs2',
+  },
+  resolve: { extensions: ['.ts', '.tsx', '.js'] },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: [/node_modules/],
+        loader: 'ts-loader'
+      }
+    ]
+  }
 }
