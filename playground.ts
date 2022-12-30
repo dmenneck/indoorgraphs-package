@@ -1,6 +1,6 @@
 // todo: exclude tests from ts build
-// const { IndoorGraphs } = require("indoorgraphs");
-const { IndoorGraphs } = require("./dist/index");
+const { IndoorGraphs } = require("indoorgraphs");
+// const { IndoorGraphs } = require("./dist/index");
 
 const data = require("./graphs/test.json");
 
@@ -18,5 +18,6 @@ const routableOptions = graph.getRoutableOptions()
 const [coordinates, visitedNodes, instructions, error] = graph.getRoute("UG_t1", "EG_t4");
 
 if (!error) {
-    console.log(instructions)
+    console.log(instructions);
+    console.log(routableOptions)
 }

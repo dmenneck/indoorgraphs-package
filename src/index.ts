@@ -30,7 +30,7 @@ const defaultRoutingOptions: DefaultRoutingOptions = {
 const defaultActiveFilter = {};
 
 const validateNodes = (nodes: any) => {
-  if (!nodes || Object.keys(nodes).length === 0) return false;
+  if (!nodes || Object.keys(nodes).length === 0) return false;
 
   const [id, obj]: [string, NodeInterface | unknown] = Object.entries(nodes)[0];
 
@@ -52,17 +52,20 @@ module.exports = class IndoorGraphs {
   filter?: any;
 
   // constructor (nodes: Nodes, options: DefaultRoutingOptions = defaultRoutingOptions, filter = defaultActiveFilter) {
-  constructor(nodes: Nodes, {routingOptions = defaultRoutingOptions, filter = defaultActiveFilter}: SecondArgument) {
+  constructor(nodes: Nodes, options: SecondArgument) {
+
     const validNodes = validateNodes(nodes)
     if (!validNodes) {
       throw new TypeError("Please provide valid nodes.");
     }
 
+    const { routingOptions = defaultRoutingOptions, filter = defaultActiveFilter }: SecondArgument = options ;
+    
     // user passed something else than an object
     if (typeof routingOptions !== "object" || typeof filter !== "object") {
       throw new TypeError("routingObjects and/or filter has to be of type object.");
     }
-
+    
     this.options = routingOptions
     this.filter = filter
     this.nodes = nodes;
