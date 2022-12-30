@@ -7,12 +7,14 @@ interface NodeInterface {
   type: string;
   level: string;
   adjacentNodes?: object;
+  doorOptions?: object;
 }
 
 interface DefaultRoutingOptions {
   doorOptions: object;
   pathOptions: object;
   preferElevator: boolean;
+  [key: string]: any
 }
 
 interface Nodes {
@@ -64,7 +66,6 @@ module.exports = class IndoorGraphs {
     this.options = routingOptions
     this.filter = filter
     this.nodes = nodes;
-
   }
 
   getNodes () {
@@ -81,6 +82,39 @@ module.exports = class IndoorGraphs {
 
   setOptions (options: any) {
     this.options = options
+  }
+
+  // returns all the attributes present in the graph
+  // these can be utilized to request accessible paths
+  getRoutableOptions () {
+    const doorOptions: any = {};
+    const pathOptions: any = {};
+    const preferElevator = false;
+
+    Object.entries(this.nodes).map(([id, attributes]) => {
+      if (attributes.doorOptions) {
+        for (let key in attributes.doorOptions) {
+          if (!doorOptions.hasOwnProperty(key)) {
+            // @ts-ignore
+            doorOptions[key] = typeof attributes.doorOptions[key] === "boolean" ? "boolean" : "string";
+          }
+        }  
+      }
+
+      if (attributes.adjacentNodes) {
+        const [data] = Object.values(attributes.adjacentNodes);
+        const [attr] = Object.values(data);
+
+        Object.entries(attr).map(([key, val]) => {
+          if (!pathOptions.hasOwnProperty(key)) {
+            // @ts-ignore
+            pathOptions[key] = typeof attributes.doorOptions[key] === "boolean" ? "boolean" : "string";
+          }
+        })
+      }
+    })
+
+    return { doorOptions, pathOptions, preferElevator }
   }
 
   getFilter () {
@@ -107,7 +141,7 @@ module.exports = class IndoorGraphs {
     if (!this.nodes) return false
 
     if (!start || !dest) {
-      return this.constructErrorMessage("Please enter a start and destination")
+      return this.constructErrorMessage("Please enter a start and destination");
     }
 
     const graph = saveGraph(this.nodes, this.options, this.filter);

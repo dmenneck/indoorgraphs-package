@@ -6,11 +6,13 @@ interface NodeInterface {
     type: string;
     level: string;
     adjacentNodes?: object;
+    doorOptions?: object;
 }
 interface DefaultRoutingOptions {
     doorOptions: object;
     pathOptions: object;
     preferElevator: boolean;
+    [key: string]: any;
 }
 interface Nodes {
     [key: string]: NodeInterface;

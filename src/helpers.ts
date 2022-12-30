@@ -2,8 +2,8 @@ export {};
 
 const turf = require('@turf/turf')
 
-const saveGraph = (nodes: any, options: any) => {
-  const graph = buildGraph(nodes, options)
+const saveGraph = (nodes: any, options: any, activeFilter: any) => {
+  const graph = buildGraph(nodes, options, activeFilter)
 
   const finishedGraph: any = {}
 
@@ -16,12 +16,12 @@ const saveGraph = (nodes: any, options: any) => {
   return finishedGraph
 }
 
-const buildGraph = (nodes: any, options: any) => {
+const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   const nodesArray = []
   let filteredNodes = nodes
 
   if (Object.keys(options).length > 0) {
-    filteredNodes = removeEdges(nodes, options)
+    filteredNodes = removeEdges(nodes, options, activeFilter)
   }
 
   // no nodes left after filter
@@ -66,7 +66,7 @@ const buildGraph = (nodes: any, options: any) => {
   return nodesArray
 }
 
-const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: any) => {
+const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: any, activeFilter: any) => {
   const copiedNodes = JSON.parse(JSON.stringify(nodes))
   const doorOptionsFiltered = doorOptions && Object.entries(doorOptions)
   const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
@@ -84,13 +84,10 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
 
       doorOptions && doorOptionsFiltered.map((filterOption: any) => {
         // skip attribute if user selected false;
-        // ist in web app richtig drinne!
-        /*
           if (activeFilter[filterOption[0]] === false) {
             console.log('ignore: ', filterOption[0])
             return false
           }
-        */
 
         if (filterOption[1].length === 2) {
           if (filterOption[1][1] === 'max') {
@@ -115,15 +112,13 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
           if (!attributes[option[0]]) return false
 
           // skip attribute if user selected false;
-          /*
           if (activeFilter[option[0]] === false) {
             console.log('ignore: ', option[0])
             return false
           }
-          */
 
           // skip all nodes where the attribute is not set (= "undefined")
-          // if (typeof attributes[option] === "undefined") return false;
+          if (typeof attributes[option] === "undefined") return false;
 
           if (option[1].length === 2) {
             if (option[1][1] === 'max') {

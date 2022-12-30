@@ -1,7 +1,6 @@
 # indoorgraphs
 
-Use indoor graphs built with [indoorgraphs](https://indoorgraphs.de/) to implement client-side routing in your application.
-
+Use indoor graphs built with [indoorgraphs](https://indoorgraphs.de/) to implement client-side routing in your mapping application.
 
 
 ## Installation
@@ -12,7 +11,6 @@ To install the library, run:
 ```sh
 $ npm install indoorgraphs
 ```
-
 
 ## How to use indoorgraphs?
 
