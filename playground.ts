@@ -1,7 +1,18 @@
 const { IndoorGraphs } = require("./dist/indoorgraphs.js");
-const data = require("./graphs/303.json");
+const data = require("./graphs/test.json");
 
-const graph = new IndoorGraphs(data);
-const [coordinates, visitedNodes, instructions, error] = graph.getRoute("OG1_1.06", "EG_0.11");
+const filter = {
+    pathHasStairs: false
+}
 
-console.log(error)
+const routingOptions = {
+    preferElevator: false 
+}
+
+const graph = new IndoorGraphs(data, { routingOptions, filter });
+
+const [coordinates, visitedNodes, instructions, error] = graph.getRoute("UG_t1", "EG_t4");
+
+if (!error) {
+    console.log(instructions)
+}

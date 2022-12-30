@@ -7,8 +7,8 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    library: "IndoorGraphs",
-    libraryTarget: 'commonjs2',
+    library: 'IndoorGraphs',
+    libraryTarget: 'commonjs2'
   },
   resolve: { extensions: ['.ts', '.tsx', '.js'] },
   module: {

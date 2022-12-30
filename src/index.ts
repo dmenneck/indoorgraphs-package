@@ -39,40 +39,57 @@ const validateNodes = (nodes: any) => {
   return true;
 }
 
+interface SecondArgument {
+  routingOptions: DefaultRoutingOptions;
+  filter: any
+}
+
 module.exports = class IndoorGraphs {
   nodes: Nodes;
   options?
-  activeFilter: any;
   filter?: any;
 
-  constructor (nodes: Nodes, options: DefaultRoutingOptions = defaultRoutingOptions, filter = defaultActiveFilter) {
+  // constructor (nodes: Nodes, options: DefaultRoutingOptions = defaultRoutingOptions, filter = defaultActiveFilter) {
+  constructor(nodes: Nodes, {routingOptions = defaultRoutingOptions, filter = defaultActiveFilter}: SecondArgument) {
     const validNodes = validateNodes(nodes)
     if (!validNodes) {
       throw new TypeError("Please provide valid nodes.");
     }
 
-    this.options = options
+    // user passed something else than an object
+    if (typeof routingOptions !== "object" || typeof filter !== "object") {
+      throw new TypeError("routingObjects and/or filter has to be of type object.");
+    }
+
+    this.options = routingOptions
     this.filter = filter
-    this.nodes = nodes
+    this.nodes = nodes;
+
   }
 
   getNodes () {
     return this.nodes
   }
 
-  getOptions () {
-    return this.options
-  }
-
   setNodes (nodes: Nodes) {
     this.nodes = nodes
   }
 
-  seOptions (options: any) {
+  getOptions () {
+    return this.options
+  }
+
+  setOptions (options: any) {
     this.options = options
   }
 
-  getFilterAttributes () {}
+  getFilter () {
+    return this.filter;
+  }
+
+  setFilter (filter: any) {
+    this.filter = filter;
+  }
 
   isNodeValid (nodes: Nodes, node: string) {
     if (!nodes[node]) {
@@ -93,7 +110,7 @@ module.exports = class IndoorGraphs {
       return this.constructErrorMessage("Please enter a start and destination")
     }
 
-    const graph = saveGraph(this.nodes, this.options, this.activeFilter);
+    const graph = saveGraph(this.nodes, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {
       console.log(`Node ${start} is not present in the graph.`);
