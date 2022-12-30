@@ -5,7 +5,7 @@ module.exports = {
     indoorgraphs: path.resolve(__dirname, 'src/index.ts')
   },
   output: {
-    filename: '[name].js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'IndoorGraphs',
     libraryTarget: 'commonjs2'

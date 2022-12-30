@@ -1,18 +1,24 @@
 {
-  "name": "indoorgraphs-module",
-  "version": "1.0.0",
+  "name": "indoorgraphs",
+  "version": "0.0.3",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "test": "jest",
     "build": "webpack",
     "style": "standard --fix"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Indoor navigation"
+  ],
+  "author": "Dirk Mennecke",
   "license": "ISC",
   "dependencies": {
-    "@turf/turf": "^6.5.0"
+    "@turf/turf": "^6.5.0",
+    "indoorgraphs": "^0.0.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.18.6",

@@ -1,4 +1,6 @@
-const { IndoorGraphs } = require("./dist/indoorgraphs.js");
+// todo: exclude tests from ts build
+const { IndoorGraphs } = require("indoorgraphs");
+
 const data = require("./graphs/test.json");
 
 const filter = {
