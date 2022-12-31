@@ -2,22 +2,18 @@
 const { IndoorGraphs } = require("indoorgraphs");
 // const { IndoorGraphs } = require("./dist/index");
 
-const data = require("./graphs/test.json");
-
-const filter = {
-    pathHasStairs: true
-}
+const data2 = require("./tests/graphs/pathWidth20.json");
 
 const routingOptions = {
-    preferElevator: true 
+    pathOptions: { pathWidth: ["5", "max"] },
+    doorOptions: {},
+    preferElevator: false
 }
 
-const graph = new IndoorGraphs(data, { routingOptions, filter });
-const routableOptions = graph.getRoutableOptions()
-
-const [coordinates, visitedNodes, instructions, error] = graph.getRoute("UG_t1", "EG_t4");
-
-if (!error) {
-    console.log(instructions);
-    console.log(routableOptions)
+const filter = {
+    pathWidth: true
 }
+
+const graph = new IndoorGraphs(data2, {})
+console.log(graph.getRoutableOptions())
+

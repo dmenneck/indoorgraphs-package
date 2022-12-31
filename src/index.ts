@@ -91,7 +91,7 @@ module.exports = class IndoorGraphs {
   // these can be utilized to request accessible paths
   getRoutableOptions () {
     const doorOptions: any = {};
-    const pathOptions: any = {};
+    let pathOptions: any = {};
     const preferElevator = false;
 
     Object.entries(this.nodes).map(([id, attributes]) => {
@@ -109,9 +109,10 @@ module.exports = class IndoorGraphs {
         const [attr] = Object.values(data);
 
         Object.entries(attr).map(([key, val]) => {
-          if (!pathOptions.hasOwnProperty(key)) {
-            // @ts-ignore
-            pathOptions[key] = typeof attributes.doorOptions[key] === "boolean" ? "boolean" : "string";
+          if (key && !pathOptions.hasOwnProperty(key)) {
+   
+            // add key to obj
+            pathOptions = {...pathOptions, [key]: typeof val === "boolean" ? "boolean" : "string"}
           }
         })
       }
@@ -150,7 +151,7 @@ module.exports = class IndoorGraphs {
     const graph = saveGraph(this.nodes, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {
-      console.log(`Node ${start} is not present in the graph.`);
+      // console.log(`Node ${start} is not present in the graph.`);
       return this.constructErrorMessage(`Node ${start} is not present in the graph.`)
     }
 
@@ -164,6 +165,11 @@ module.exports = class IndoorGraphs {
     if (shortestPath[2].hasOwnProperty("floors") && shortestPath[2].hasOwnProperty("floorChangeWithStairsOrElevator")) {
       // @ts-ignore
       if (shortestPath[2] && shortestPath[2]?.floors?.length === 1) delete shortestPath[2].floorChangeWithStairsOrElevator
+    }
+
+    // check if path has more than one node
+    if (shortestPath[1].length === 1) {
+      return this.constructErrorMessage(`No path found.`)
     }
 
     // wenn nichts gefunden, dann fahrstuhl dazu packen!

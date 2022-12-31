@@ -21,13 +21,13 @@ const { IndoorGraphs } = require("indoorgraphs");
 const data = require("./graphs/test.json");
 
 // setup filter and routing options
-const filter = {
-    pathHasStairs: false
+const routingOptions = {
+    pathOptions: {},
+    doorOptions: {},
+    preferElevator: false
 }
 
-const routingOptions = {
-    preferElevator: false 
-}
+const filter = {} 
 
 // create a new indoor graph
 const graph = new IndoorGraphs(data, { routingOptions, filter });

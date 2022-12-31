@@ -50,5 +50,3 @@ describe('Create Instance of IndoorGraphs', () => {
       }
   })
 })
-
-

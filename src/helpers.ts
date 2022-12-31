@@ -18,7 +18,7 @@ const saveGraph = (nodes: any, options: any, activeFilter: any) => {
 
 const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   const nodesArray = []
-  let filteredNodes = nodes
+  let filteredNodes = nodes;
 
   if (Object.keys(options).length > 0) {
     filteredNodes = removeEdges(nodes, options, activeFilter)
@@ -85,7 +85,7 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
       doorOptions && doorOptionsFiltered.map((filterOption: any) => {
         // skip attribute if user selected false;
           if (activeFilter[filterOption[0]] === false) {
-            console.log('ignore: ', filterOption[0])
+            // console.log('ignore: ', filterOption[0])
             return false
           }
 
@@ -113,12 +113,12 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
 
           // skip attribute if user selected false;
           if (activeFilter[option[0]] === false) {
-            console.log('ignore: ', option[0])
+            // console.log('ignore: ', option[0])
             return false
           }
 
           // skip all nodes where the attribute is not set (= "undefined")
-          if (typeof attributes[option] === "undefined") return false;
+          if (typeof attributes[option[0]] === "undefined") return false;
 
           if (option[1].length === 2) {
             if (option[1][1] === 'max') {
