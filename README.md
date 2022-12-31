@@ -55,10 +55,55 @@ if (!error) {
 
 `graph.setFilter(filter)` set new filter
 
+`graph.getRoutableOptions()` get all the attributes that can be used to query paths
+
 `graph.getRoute(start, dest)` calculate shortest path from start to dest
 
-## Contributing
+## Routing options
 
+indoorgraphs enables attribute-based routing queries. All attributes included in the graph can be queried using `graph.getRoutableOptions()`.
+The following query ignores all paths where the path width is greater than 5 meters. 
+
+```js
+// setup filter and routing options
+const routingOptions = {
+    pathOptions: { pathWidth: ["5", "max"]},
+    doorOptions: {},
+    preferElevator: false
+}
+
+const filter = {
+    pathWidth: true
+} 
+
+// create a new indoor graph
+const graph = new IndoorGraphs(data, { routingOptions, filter });
+```
+
+## Routing filter
+
+The task of the routing filter is to enable or disable the query of certain attributes. Per default, all attributes are enabled. 
+That's why the following declarations are the same:
+
+```js
+const filter = {
+    pathWidth: true
+} 
+
+// SAME AS
+
+const filter = {}
+```
+
+...however, if you want to disable an attribute, you have to specify it: 
+
+```js
+const filter = {
+    pathWidth: false
+} 
+```
+
+## Contributing
 
 1.  Fork it!
 2.  Create your feature branch: `git checkout -b my-new-feature`
@@ -66,7 +111,6 @@ if (!error) {
 4.  Commit your changes: `git commit -am 'Add some feature'`
 5.  Push to the branch: `git push origin my-new-feature`
 6.  Submit a pull request :sunglasses:
-
 
 ## Authors
 
