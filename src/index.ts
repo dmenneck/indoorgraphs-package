@@ -53,7 +53,12 @@ module.exports = class IndoorGraphs {
 
   // constructor (nodes: Nodes, options: DefaultRoutingOptions = defaultRoutingOptions, filter = defaultActiveFilter) {
   constructor(nodes: Nodes, options: SecondArgument) {
+    /*
+    Wenn user beim instanziieren nur z.B. routingoptions übergibt,
+    const graph = new IndoorGraphs(data2, { routingOptions: {pathOptions: {test: 20}} })
+    dann gibt graph.getOptions() folgende wieder: { pathOptions: { test: 20 } }
 
+    */
     const validNodes = validateNodes(nodes)
     if (!validNodes) {
       throw new TypeError("Please provide valid nodes.");
