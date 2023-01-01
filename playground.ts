@@ -12,6 +12,6 @@ const routingOptions = {
 
 const filter = {}
 
-const graph = new IndoorGraphs(data2, {})
+const graph = new IndoorGraphs(data2, { routingOptions, filter })
+
 const [coordinates, path, instructions, error] = graph.getRoute('UG_1', 'UG_2');
-console.log(instructions)
