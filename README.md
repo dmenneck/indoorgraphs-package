@@ -1,4 +1,4 @@
-## What is indoorgraphs
+## What is indoorgraphs?
 
 Use indoor graphs built with [indoorgraphs](https://indoorgraphs.de/) to implement client-side routing in your mapping application.
 indoorgraphs allows attribute-based queries to visualize accessible routes.
@@ -40,7 +40,7 @@ if (!error) {
 // do something with coordinates, visitedNodes and instructions
 ```
 
-## class methods
+## Class methods
 
 `graph.getNodes()` return all nodes
 
