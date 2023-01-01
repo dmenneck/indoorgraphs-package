@@ -1,6 +1,7 @@
-# indoorgraphs
+## What is indoorgraphs
 
 Use indoor graphs built with [indoorgraphs](https://indoorgraphs.de/) to implement client-side routing in your mapping application.
+indoorgraphs allows attribute-based queries to visualize accessible routes.
 
 
 ## Installation
