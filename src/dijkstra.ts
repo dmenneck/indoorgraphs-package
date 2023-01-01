@@ -259,8 +259,6 @@ const getCombinedRoutingInstructions = (instructionsPerSegment: any) => {
 const getTurnType = (from: any, to: any) => {
   let instruction
 
-  console.log(from, to)
-
   if (from === 'East' && to === 'North') instruction = 'left'
   if (from === 'East' && to === 'West') instruction = 'Straight'
   if (from === 'East' && to === 'South') instruction = 'right'
@@ -381,10 +379,10 @@ const getRoutingInstructions = (path: any, data: any) => {
   const distances = actualInstructions.map((i: any) => i.distance)
   const distancesSum = getSum(distances).toFixed(2)
 
-  // ???
-  const timeToTravel = 1 / distancesSum
+  // converted to minutes
+  const timeToTravel = (distancesSum / 1.3) / 60
 
-  const finalInstructions = constructFinalRoutingInstructions(distancesSum, timeToTravel, actualInstructions, nodes)
+  const finalInstructions = constructFinalRoutingInstructions(distancesSum, timeToTravel.toFixed(1), actualInstructions, nodes)
 
   return finalInstructions
 }
