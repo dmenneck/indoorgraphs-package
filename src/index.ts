@@ -163,6 +163,8 @@ module.exports = class IndoorGraphs {
       return this.constructErrorMessage(`Node ${dest} is not present in the graph.`)
     }
 
+    // sollte auch positionen von abbiegungen zurückgeben: [{2: "left"}, {4: "sharp right"}]
+    
     const shortestPath: [ [number], [string], object, string ] = getShortestPath(graph, `${start}`, `${dest}`);
 
     // remove "floorChangeWithStairsOrElevator" if only one floor

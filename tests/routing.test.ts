@@ -92,7 +92,6 @@ describe("Different options", () => {
   })
 })
 
-
 describe('Invalid nodes', () => { 
     test('Start node missing', () => {
       const graph = new IndoorGraphs(data, {})
@@ -143,4 +142,10 @@ describe('Invalid nodes', () => {
       expect(instructions).toBe(undefined);
       expect(error).toBe("Node wdwdd is not present in the graph.")
     })
+})
+
+describe("Different routing options", () => {
+  test("", () => {
+    
+  })
 })

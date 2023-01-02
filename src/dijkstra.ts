@@ -230,10 +230,12 @@ const getInstructionsPerSegment = (nodes: any) => {
 const getCombinedRoutingInstructions = (instructionsPerSegment: any) => {
   const actualInstructions: any = []
 
+  const turningNodesIndices: number[] = [];
+
   // combine distances if adjacent segments point in same direction
   instructionsPerSegment.map(({ direction, distance, floor }: any, index: any) => {
     // get last added instruction
-    const lastAddedInstruction = actualInstructions[actualInstructions.length - 1]
+    const lastAddedInstruction = actualInstructions[actualInstructions.length - 1];
 
     if (!lastAddedInstruction) {
       actualInstructions.push({ direction, distance })
@@ -248,12 +250,13 @@ const getCombinedRoutingInstructions = (instructionsPerSegment: any) => {
         actualInstructions.push({ direction, distance })
         lastAddedInstruction.endFloor = floor
       } else {
+        turningNodesIndices.push(index + 1);
         actualInstructions.push({ direction, distance })
       }
     }
   })
 
-  return actualInstructions
+  return [actualInstructions, turningNodesIndices]
 }
 
 const getTurnType = (from: any, to: any) => {
@@ -323,11 +326,12 @@ const getTurnType = (from: any, to: any) => {
   return instruction
 }
 
-const constructFinalRoutingInstructions = (distancesSum: any, timeToTravel: any, instructions: any, nodes: any) => {
+const constructFinalRoutingInstructions = (distancesSum: any, timeToTravel: any, instructions: any, nodes: any, turningNodesIndices: number[]) => {
   const { id: startId } = nodes[0]
   const { id: endId } = nodes[nodes.length - 1]
   let elevator = false
-  const floorChanges: any = []
+  const floorChanges: any = [];
+  const turningNodes: any = {}
 
   const finalTextInstructions = [`Start at ${startId}`]
 
@@ -342,6 +346,9 @@ const constructFinalRoutingInstructions = (distancesSum: any, timeToTravel: any,
     } else {
       finalTextInstructions.push(`Follow the path for ${distance.toFixed(1)} meters`)
       const turnType = getTurnType(direction, nextInstruction?.direction)
+      
+      const currentTurnNode = turningNodesIndices.shift();
+      if (currentTurnNode) turningNodes[currentTurnNode] = turnType;
 
       turnType && finalTextInstructions.push(`Turn ${turnType}`)
     }
@@ -357,6 +364,7 @@ const constructFinalRoutingInstructions = (distancesSum: any, timeToTravel: any,
     distancesSum,
     timeToTravel,
     floorChangeWithStairsOrElevator: elevator ? 'elevator' : 'stairs',
+    turningNodes
   }
 
   if (uniqueFloors.length > 0) {
@@ -374,7 +382,7 @@ const getRoutingInstructions = (path: any, data: any) => {
   path.map((id: any) => nodes.push(data[id]))
 
   const instructionsPerSegment = getInstructionsPerSegment(nodes)
-  const actualInstructions = getCombinedRoutingInstructions(instructionsPerSegment)
+  const [actualInstructions, turningNodesIndices] = getCombinedRoutingInstructions(instructionsPerSegment)
 
   const distances = actualInstructions.map((i: any) => i.distance)
   const distancesSum = getSum(distances).toFixed(2)
@@ -382,7 +390,7 @@ const getRoutingInstructions = (path: any, data: any) => {
   // converted to minutes
   const timeToTravel = (distancesSum / 1.3) / 60
 
-  const finalInstructions = constructFinalRoutingInstructions(distancesSum, timeToTravel.toFixed(1), actualInstructions, nodes)
+  const finalInstructions = constructFinalRoutingInstructions(distancesSum, timeToTravel.toFixed(1), actualInstructions, nodes, turningNodesIndices)
 
   return finalInstructions
 }
