@@ -1,6 +1,9 @@
+> **WARNING**:
+> This project is currently still in beta phase. If you encounter bugs, don't be afraid to open a ticket.
+
 ## What is indoorgraphs?
 
-BETA: indoorgraphs is a node package that enables client-side routing in your mapping application. Create indoor graphs with the 
+indoorgraphs is a node package that enables client-side routing in your mapping application. Create indoor graphs with the 
 [indoorgraphs](https://indoorgraphs.de/) web application and perform attribute-based queries to calculate (accessible) shortest paths directly on the users device. 
 
 
