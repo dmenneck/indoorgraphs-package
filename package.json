@@ -1,10 +1,14 @@
 {
   "name": "indoorgraphs",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "",
   "main": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmenneck/indoorgraphs-package"
   },
   "scripts": {
     "test": "jest",
