@@ -5,6 +5,8 @@ const turf = require('@turf/turf')
 const saveGraph = (nodes: any, options: any, activeFilter: any) => {
   const graph = buildGraph(nodes, options, activeFilter)
 
+  /*
+
   const finishedGraph: any = {}
 
   if (!graph || graph.length < 2) return false
@@ -14,16 +16,19 @@ const saveGraph = (nodes: any, options: any, activeFilter: any) => {
   })
 
   return finishedGraph
+  */
 }
 
 const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   const nodesArray = []
   let filteredNodes = nodes;
 
+
   if (Object.keys(options).length > 0) {
     filteredNodes = removeEdges(nodes, options, activeFilter)
   }
 
+    /*
   // no nodes left after filter
   if (Object.entries(filteredNodes).length < 2) {
     return false
@@ -64,47 +69,83 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   }
 
   return nodesArray
+  */
+}
+
+const deletePathAttributesWhereId = (id: string, copiedNodes: any) => {
+  // delete all the pathAttributes that are associated with Elevator nodes
+  Object.keys(copiedNodes.pathAttributes).map((key) => {
+    if (key.includes(id)) delete copiedNodes.pathAttributes[key]
+  })
+
+  return copiedNodes
 }
 
 const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: any, activeFilter: any) => {
-  const copiedNodes = JSON.parse(JSON.stringify(nodes))
+  let copiedNodes = JSON.parse(JSON.stringify(nodes))
   const doorOptionsFiltered = doorOptions && Object.entries(doorOptions)
   const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
 
+  const idsToRemoveFromPathAttributes: string[] = []
   // remove elevator nodes if user preferred stairs over elevator
-  !preferElevator && Object.entries(copiedNodes).map(([id, node]: any) => {
-    if (node.type === 'Elevator') delete copiedNodes[id]
+  !preferElevator && Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
+
+    if (node.type === 'Elevator') {
+      delete copiedNodes.nodes[id];
+      idsToRemoveFromPathAttributes.push(id)
+      
+      copiedNodes = deletePathAttributesWhereId(id, copiedNodes)
+    }
   })
 
   // remove nodes based on door filters
   if (doorOptions) {
-    Object.entries(copiedNodes).map(([id, node]: any) => {
+    Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
+
       const doorOptions = node.doorOptions
       if (!doorOptions) return
 
       doorOptions && doorOptionsFiltered.map((filterOption: any) => {
         // skip attribute if user selected false;
-          if (activeFilter[filterOption[0]] === false) {
-            // console.log('ignore: ', filterOption[0])
-            return false
-          }
+        // "this attribute should not be included in the querying"
+        if (activeFilter[filterOption[0]] === false) {
+          // console.log('ignore: ', filterOption[0])
+          return false
+        }
 
+        // filterOption is of type ['value', 'min/max']
         if (filterOption[1].length === 2) {
           if (filterOption[1][1] === 'max') {
-            if (+doorOptions[filterOption[0]] > +filterOption[1][0]) delete copiedNodes[id]
+            // console.log(copiedNodes)
+            if (+doorOptions[filterOption[0]] > +filterOption[1][0]) {
+              delete copiedNodes.nodes[id]
+              // delete node from pathAttributes
+              copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
+            }
           }
           if (filterOption[1][1] === 'min') {
-            if (+doorOptions[filterOption[0]] < +filterOption[1][0]) delete copiedNodes[id]
+            if (+doorOptions[filterOption[0]] < +filterOption[1][0]) {
+              delete copiedNodes.nodes[id]
+              // delete node from pathAttributes
+              copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
+            }
           }
+          // filterOption is a boolean
         } else if (doorOptions[filterOption[0]] !== filterOption[1]) {
-          delete copiedNodes[id]
+          delete copiedNodes.nodes[id]
+          // delete node from pathAttributes
+          copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
         }
-      })
+      })           
     })
   }
 
+  console.log(pathOptions)
+
   if (pathOptions) {
-    Object.entries(copiedNodes).map(([id, attributes]: any) => {
+    Object.entries(copiedNodes.nodes).map(([id, attributes]: any) => {
+      console.log(attributes)
+      /*
       Object.entries(attributes.adjacentNodes).map(([adjacentNodeID, adjacentNodeAttributes]: any) => {
         const attributes = adjacentNodeAttributes.attributes
 
@@ -144,6 +185,7 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
           }
         })
       })
+      */
     })
   }
 

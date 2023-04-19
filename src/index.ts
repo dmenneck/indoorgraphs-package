@@ -30,14 +30,15 @@ const defaultRoutingOptions: DefaultRoutingOptions = {
 const defaultActiveFilter = {};
 
 const validateNodes = (nodes: any) => {
+  // check if user passed nothing or no object
   if (!nodes || Object.keys(nodes).length === 0) return false;
 
-  const [id, obj]: [string, NodeInterface | unknown] = Object.entries(nodes)[0];
+  Object.values(nodes.nodes).map((node) => {
+    const properties = Object.entries(node);
 
-  if (typeof nodes !== "object" || !id.includes("_") || !obj.hasOwnProperty("currentCoordinates")) {
-    return false;
-  }
-
+    // todo: validate nodes
+  })
+  
   return true;
 }
 
@@ -153,6 +154,8 @@ module.exports = class IndoorGraphs {
     }
 
     const graph = saveGraph(this.nodes, this.options, this.filter);
+
+    return false;
 
     if (!this.isNodeValid(graph, start)) {
       // console.log(`Node ${start} is not present in the graph.`);
