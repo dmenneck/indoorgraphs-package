@@ -162,7 +162,7 @@ const getDistance = (from: any, to: any) => {
 const getShortestPath = (data: any, start: any, finish: any) => {
   const graph = new WeightedGraph()
 
-  const nodes = data
+  const nodes = data;
 
   // add vertices and edges to graph
   for (const node in nodes) {

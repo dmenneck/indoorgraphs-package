@@ -19,7 +19,7 @@ interface Nodes {
 }
 declare const defaultRoutingOptions: DefaultRoutingOptions;
 declare const defaultActiveFilter: {};
-declare const validateNodes: (nodes: any) => boolean;
+declare const validateNodes: (graph: any) => any;
 interface SecondArgument {
     routingOptions: DefaultRoutingOptions;
     filter: any;

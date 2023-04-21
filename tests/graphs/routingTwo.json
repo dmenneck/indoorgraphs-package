@@ -1,0 +1,87 @@
+{
+    "nodes": {
+        "EG_t1": {
+            "currentCoordinates": [
+                6.93957671090673,
+                50.939350753943216
+            ],
+            "doorOptions": {
+                "isWellLit": false
+            },
+            "id": "EG_t1",
+            "type": "Room entrance",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t2",
+                "EG_t3"
+            ]
+        },
+        "EG_t2": {
+            "currentCoordinates": [
+                6.946505543180664,
+                50.941262250870466
+            ],
+            "doorOptions": {
+                "isWellLit": false
+            },
+            "id": "EG_t2",
+            "type": "Node",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t1",
+                "EG_t3",
+                "EG_t4"
+            ]
+        },
+        "EG_t3": {
+            "currentCoordinates": [
+                6.946244900941135,
+                50.938247080639684
+            ],
+            "doorOptions": {
+                "isWellLit": false
+            },
+            "id": "EG_t3",
+            "type": "Node",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t1",
+                "EG_t2",
+                "EG_t4"
+            ]
+        },
+        "EG_t4": {
+            "currentCoordinates": [
+                6.94962923947096,
+                50.940506023209394
+            ],
+            "doorOptions": {
+                "isWellLit": false
+            },
+            "id": "EG_t4",
+            "type": "Node",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t2",
+                "EG_t3"
+            ]
+        }
+    },
+    "pathAttributes": {
+        "EG_t2-EG_t1": {
+            "hasStairs": true
+        },
+        "EG_t3-EG_t2": {
+            "hasStairs": false
+        },
+        "EG_t3-EG_t1": {
+            "hasStairs": false
+        },
+        "EG_t4-EG_t2": {
+            "hasStairs": false
+        },
+        "EG_t4-EG_t3": {
+            "hasStairs": true
+        }
+    }
+}

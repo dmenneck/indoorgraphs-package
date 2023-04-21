@@ -1,0 +1,82 @@
+{
+    "nodes": {
+        "EG_t1": {
+            "currentCoordinates": [
+                6.941962423193652,
+                50.94713474825744
+            ],
+            "doorOptions": {},
+            "id": "EG_t1",
+            "type": "Node",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t2",
+                "EG_t3"
+            ]
+        },
+        "EG_t2": {
+            "currentCoordinates": [
+                6.95561996432432,
+                50.947109852057906
+            ],
+            "doorOptions": {},
+            "id": "EG_t2",
+            "type": "Elevator",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t1",
+                "OG1_t2"
+            ]
+        },
+        "OG1_t2": {
+            "currentCoordinates": [
+                6.95561996432432,
+                50.947109852057906
+            ],
+            "id": "OG1_t2",
+            "type": "Elevator",
+            "dest": "OG1",
+            "level": "OG1",
+            "adjacentNodes": [
+                "EG_t2",
+                "EG_t2",
+                "EG_t4"
+            ]
+        },
+        "EG_t3": {
+            "currentCoordinates": [
+                6.942328652117318,
+                50.944791628390846
+            ],
+            "doorOptions": {
+                "doorWidth": "40"
+            },
+            "id": "EG_t3",
+            "type": "Room entrance",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t1",
+                "EG_t4"
+            ]
+        },
+        "EG_t4": {
+            "currentCoordinates": [
+                6.942816227424807,
+                50.94232167852843
+            ],
+            "doorOptions": {},
+            "id": "EG_t4",
+            "type": "Node",
+            "level": "EG",
+            "adjacentNodes": [
+                "EG_t3",
+                "OG1_t2"
+            ]
+        }
+    },
+    "pathAttributes": {
+        "EG_t4-EG_t1": {
+            "pathWidth": 40
+        }
+    }
+}

@@ -14,7 +14,8 @@
     "test": "jest",
     "build": "webpack",
     "style": "standard --fix",
-    "build:run": "npm run build && node playground.ts"
+    "build:run": "npm run build && node playground.ts",
+    "build:test": "npm run build && npm run test"
   },
   "keywords": [
     "Indoor navigation",

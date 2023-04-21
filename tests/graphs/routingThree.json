@@ -1,0 +1,32 @@
+{
+    "nodes": {
+        "UG_t1": {
+            "currentCoordinates": [
+                6.939840163291116,
+                50.94164339911828
+            ],
+            "doorOptions": {
+                "doorWidth": "20"
+            },
+            "id": "UG_t1",
+            "type": "Room entrance",
+            "level": "UG",
+            "adjacentNodes": [
+                "UG_t2"
+            ]
+        },
+        "UG_t2": {
+            "currentCoordinates": [
+                6.950077535625931,
+                50.94255832352593
+            ],
+            "id": "UG_t2",
+            "type": "Node",
+            "level": "UG",
+            "adjacentNodes": [
+                "UG_t1"
+            ]
+        }
+    },
+    "pathAttributes": {}
+}

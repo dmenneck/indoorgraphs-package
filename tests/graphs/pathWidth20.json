@@ -1,1 +1,0 @@
-{"UG_t1":{"currentCoordinates":[6.944532399466523,50.94185641196654],"id":"UG_t1","type":"Node","level":"UG","adjacentNodes":{"UG_t2":{"attributes":{"pathWidth":"20"}}}},"UG_t2":{"currentCoordinates":[6.94846858946643,50.942106489590685],"id":"UG_t2","type":"Node","level":"UG","adjacentNodes":{"UG_t1":{"attributes":{"pathWidth":"20"}}}}}
