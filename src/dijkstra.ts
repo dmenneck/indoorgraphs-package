@@ -175,6 +175,7 @@ const getShortestPath = (data: any, start: any, finish: any) => {
     })
   }
 
+
   const path = graph.Dijkstra(start, finish)
   const lineString: any = []
 

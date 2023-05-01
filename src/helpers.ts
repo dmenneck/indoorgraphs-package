@@ -1,5 +1,6 @@
 export {};
 
+var equal = require('fast-deep-equal');
 const turf = require('@turf/turf')
 
 const saveGraph = (nodes: any, options: any, activeFilter: any) => {
@@ -29,7 +30,6 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
     return false
   }
 
-
   for (const nodeID in filteredNodes.nodes) {
     const adjacentLinks: any = {}
     const node = filteredNodes.nodes[nodeID]
@@ -49,14 +49,13 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
           distance,
           // direction: "east",
           // semantics: "go straight",
-          width: adjacentNode[1].attributes ? adjacentNode[1].attributes.width : 0,
-          slope: adjacentNode[1].attributes ? adjacentNode[1].attributes.slope : 0,
-          wheelChair: adjacentNode[1].attributes ? adjacentNode[1].attributes.wheelChair : false
+          // width: adjacentNode[1].attributes ? adjacentNode[1].attributes.width : 0,
+          // slope: adjacentNode[1].attributes ? adjacentNode[1].attributes.slope : 0,
+          // wheelChair: adjacentNode[1].attributes ? adjacentNode[1].attributes.wheelChair : false
         }       
       })
     }
 
-    
     nodesArray.push({
       id: node.id,
       type: node.type,
@@ -239,4 +238,77 @@ const getNodesPathAttribute = (nodeId: string, adjacentNodeId: string, copiedNod
   return pathAttributesForBothIds
 }
 
-module.exports = { saveGraph, removeEdges }
+const combinePathAttributes = (graph: any) => {
+  // loop over path attributes and check if there a duplicates
+  const pathAttributes = graph.pathAttributes;
+  const nodes = graph.nodes;
+
+  Object.entries(pathAttributes).map(([pathId, attributesCurrent]) => {
+    // if pathId is already a valid pathAttributesId without a -
+    if (!pathId.includes("-")) return false;
+    const [nodeIdOne, nodeIdTwo] = pathId.split("-");
+
+    // hier jetzt für jede pathAttribtues nochmal über alle Pathattributes loopen 
+    Object.entries(pathAttributes).map(([pathIdNext, attributesNext]) => {
+      if (!pathIdNext.includes("-")) return false;
+      const [nodeIdOneNext, nodeIdTwoNext] = pathIdNext.split("-");
+
+      // skip if same path ids
+      if (pathId === pathIdNext) return false;
+  
+      if (equal(attributesCurrent, attributesNext)) {
+        const pathAttributesId = generateId(pathAttributes)
+  
+        // create arrays
+        if (!Object(nodes[nodeIdOne]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdOne]["pathAttributesIds"] = []
+        if (!Object(nodes[nodeIdTwo]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdTwo]["pathAttributesIds"] = []
+        if (!Object(nodes[nodeIdOneNext]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdOneNext]["pathAttributesIds"] = []
+        if (!Object(nodes[nodeIdTwoNext]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdTwoNext]["pathAttributesIds"] = []
+   
+        // add new pathAttributesId if its not already present 
+        if (Object(nodes[nodeIdOne]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdOne].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdOne].pathAttributesIds?.push(pathAttributesId) }
+        if (Object(nodes[nodeIdTwo]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdTwo].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdTwo].pathAttributesIds?.push(pathAttributesId) }
+        if (Object(nodes[nodeIdOneNext]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdOneNext].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdOneNext].pathAttributesIds?.push(pathAttributesId) }
+        if (Object(nodes[nodeIdTwoNext]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdTwoNext].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdTwoNext].pathAttributesIds?.push(pathAttributesId) }
+  
+        // add new pathAttributesId
+        pathAttributes[pathAttributesId] = attributesCurrent;
+
+        // delete individual pathAttributes to save data
+        delete pathAttributes[pathId]
+        delete pathAttributes[pathIdNext]
+        
+      }
+    })
+  })
+
+  return graph
+}
+
+const generateId = (pathAttributes: any) => {
+  const id = Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+
+  // check if id is not already used
+  const pathAttributeIds = Object.keys(pathAttributes);
+  // does this really work?
+  while (pathAttributeIds.includes(id)) {
+    generateId(pathAttributes)
+  }
+
+
+  return id;
+}
+
+/*
+ * Export routing graph for production use
+ * combines all the same pathAttributes into one, to reduce graph size
+ */
+const exportForProductionBuild = (graph: any) => {
+  const finalGraph = combinePathAttributes(graph)
+  // export for production
+  return finalGraph
+}
+
+module.exports = { saveGraph, removeEdges, exportForProductionBuild }

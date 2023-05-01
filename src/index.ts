@@ -1,4 +1,4 @@
-const { saveGraph } = require('./helpers')
+const { saveGraph, exportForProductionBuild } = require('./helpers')
 const { getShortestPath } = require('./dijkstra');
 
 interface NodeInterface {
@@ -170,7 +170,6 @@ module.exports = class IndoorGraphs {
       return this.constructErrorMessage("Please enter a start and destination");
     }
 
-
     const graph = saveGraph(this.nodes, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {
@@ -181,7 +180,6 @@ module.exports = class IndoorGraphs {
     if (!this.isNodeValid(graph, dest)) {
       return this.constructErrorMessage(`Node ${dest} is not present in the graph.`)
     }
-
 
     // sollte auch positionen von abbiegungen zurückgeben: [{2: "left"}, {4: "sharp right"}]
     const shortestPath: [ [number], [string], object, string ] = getShortestPath(graph, `${start}`, `${dest}`);
@@ -207,5 +205,12 @@ module.exports = class IndoorGraphs {
   // TODO
   matchToNearestPath() {
     
+  }
+
+  getProductionBuild() {
+    // console.log("Bundling for production...")
+    const exportGraph = exportForProductionBuild(this.nodes);
+
+    return exportGraph;
   }
 }

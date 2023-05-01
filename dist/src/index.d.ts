@@ -1,4 +1,4 @@
-declare const saveGraph: any;
+declare const saveGraph: any, exportForProductionBuild: any;
 declare const getShortestPath: any;
 interface NodeInterface {
     currentCoordinates: number[] | null;
