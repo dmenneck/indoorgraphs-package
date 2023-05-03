@@ -1,12 +1,14 @@
-// todo: exclude tests from ts build
-// update tests
-
 // const { IndoorGraphs } = require("indoorgraphs");
 const { IndoorGraphs } = require("./dist/index");
-const data = require("./tests/graphs/prodExport.json")
+const data = require("./tests/graphs/prodExportRouting.json")
 
 const graph = new IndoorGraphs(data, { routingOptions: {}, filter: {} });
-graph.getProductionBuild()
 
-// const [coordinates, path, instructions, error] = graph.getRoute('UG_t1', 'UG_t2');
+const productionGraph = graph.getProductionBuild();
+const newGraph = new IndoorGraphs(productionGraph, { routingOptions: {
+    pathOptions: { pathWidth: ["9", "max"] }
+}, filter: {} })
 
+const [coordinates, path, instructions, error] = newGraph.getRoute('UG_t1', 'UG_t5');
+// klappt! jetzt mit pathAttributes testen!!!
+// console.log(error, path)
