@@ -20,7 +20,6 @@ describe('Create Instance of IndoorGraphs', () => {
     expect(graph).not.toBe(undefined)
   })
 
-
   test('Invalid options that get overwritten by default valid ones', () => {
     const EG_t1 =  { id, currentCoordinates, type, level, adjacentNodes }
     const data = { nodes: { EG_t1 }, pathAttributes: {} }

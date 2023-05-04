@@ -117,7 +117,6 @@ module.exports = class IndoorGraphs {
     let pathOptions: any = {};
     const preferElevator = false;
 
-
     // extract doorOptions
     Object.entries(this.nodes).map(([_, nodes]) => {
       Object.entries(nodes).map(([id, attributes]) => {
@@ -208,7 +207,6 @@ module.exports = class IndoorGraphs {
   }
 
   getProductionBuild() {
-    // console.log("Bundling for production...")
     const exportGraph = exportForProductionBuild(this.nodes);
 
     return exportGraph;

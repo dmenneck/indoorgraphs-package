@@ -39,7 +39,6 @@
             "level": "OG1",
             "adjacentNodes": [
                 "EG_t2",
-                "EG_t2",
                 "EG_t4"
             ]
         },
@@ -74,9 +73,5 @@
             ]
         }
     },
-    "pathAttributes": {
-        "EG_t4-EG_t1": {
-            "pathWidth": 40
-        }
-    }
+    "pathAttributes": {}
 }

@@ -6,7 +6,10 @@ const dataOne = require("./graphs/routingOne.json")
 describe('Routing', () => {
     test('Finds path between two nodes', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t3');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t3');
+
         expect(coordinates.length).toBe(2)
         expect(path.length).toBe(2)
         expect(path[0]).toBe("EG_t1")
@@ -16,7 +19,9 @@ describe('Routing', () => {
 
     test('Correct instructions between two nodes', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t3');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t3');
         
         const { finalTextInstructions, distancesSum, timeToTravel, floorChangeWithStairsOrElevator, turningNodes } = instructions;
 
@@ -30,7 +35,9 @@ describe('Routing', () => {
 
     test('Invalid Node: no path found', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'INVALID_NODE_ID');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'INVALID_NODE_ID');
 
         expect(coordinates).toBeUndefined()
         expect(path).toBeUndefined()
@@ -41,22 +48,27 @@ describe('Routing', () => {
 
     test('Invalid Nodes: no path found', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('INVALID_NODE_ID_ONE', 'INVALID_NODE_ID_TWO');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('INVALID_NODE_ID_ONE', 'INVALID_NODE_ID_TWO');
 
         expect(error).toBe("Node INVALID_NODE_ID_ONE is not present in the graph.")
     })
 
+
     test('Path without attributes/filter: over stairs', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {} , filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
- 
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
         expect(error).toBeUndefined()
         expect(path.length).toBe(3)
         expect(path[1]).toBe("EG_t3")
     })
 
     test('Prefer Elevator path', () => {})
-
+  
+  
     test('Door: max', () => {
         const routingOptions = {
             pathOptions: {},
@@ -67,8 +79,9 @@ describe('Routing', () => {
         const filter = {} 
 
         const graph = new IndoorGraphs(dataOne, { routingOptions, filter });
-        // console.log(graph.getOptions())
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions, filter });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
 
         expect(error).toBeUndefined()
         expect(path.length).toBe(4)
@@ -79,6 +92,7 @@ describe('Routing', () => {
         expect(finalTextInstructions[1].includes("elevator")).toBe(true)
     })  
 
+  
     test('Door: max', () => {
         const routingOptions = {
             pathOptions: {},
@@ -88,8 +102,9 @@ describe('Routing', () => {
         const filter = {} 
 
         const graph = new IndoorGraphs(dataOne, { routingOptions, filter });
-        // console.log(graph.getOptions())
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions, filter  });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
         expect(error).toBeUndefined()
         expect(path.length).toBe(3)
         expect(path[1]).toBe("EG_t3");
@@ -105,8 +120,9 @@ describe('Routing', () => {
         const filter = {} 
 
         const graph = new IndoorGraphs(dataOne, { routingOptions, filter });
-        // console.log(graph.getOptions())
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions, filter  });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
         expect(error).toBeUndefined()
         expect(path.length).toBe(3)
         expect(path[1]).toBe("EG_t3");
@@ -123,8 +139,9 @@ describe('Routing', () => {
         const filter = {} 
 
         const graph = new IndoorGraphs(dataOne, { routingOptions, filter });
-
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions, filter });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
 
         expect(error).toBeUndefined()
         expect(path.length).toBe(4)
@@ -143,8 +160,9 @@ describe('Routing', () => {
         const filter = {} 
 
         const graph = new IndoorGraphs(dataOne, { routingOptions, filter });
-
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t4');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions, filter });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
 
         expect(error).toBeUndefined()
         expect(path.length).toBe(3)

@@ -9,18 +9,27 @@ describe('Test prod export', () => {
     const graph = new IndoorGraphs(data, { routingOptions: {}, filter: {} });
     const productionGraph = graph.getProductionBuild()
 
-    // get pathAttributesId
-    const [pathAttributesId] = Object.keys(productionGraph.pathAttributes).filter((id) => id.length === 4)
-    expect(pathAttributesId).toBeDefined()
-
     const nodes = productionGraph.nodes;
-    Object.entries(nodes).map(([nodeId, attributes]: any) => {
-      if (nodeId === "UG_t1") expect(attributes.pathAttributesIds.includes(pathAttributesId))
-      if (nodeId === "UG_t2") expect(attributes.pathAttributesIds.includes(pathAttributesId))
-      if (nodeId === "UG_t3") expect(attributes.pathAttributesIds.includes(pathAttributesId))
+    const pathAttributes = productionGraph.pathAttributes;
 
-      if (nodeId === "UG_t4") expect(attributes.pathAttributesIds).toBeUndefined()
-    })
+    const one = Object.entries(pathAttributes).map(([key, attributes]: any) => { if (attributes.isLit) return key})
+    const two = Object.entries(pathAttributes).map(([key, attributes]: any) => { if (!attributes.isLit) return key})
+    
+    const [isLit] = one.filter(item => item);
+    const [isNotLit] = two.filter(item => item);
+
+    expect(Object.keys(pathAttributes).length).toBe(2)
+    expect(nodes["UG_t1"].adjacentNodes.length).toBe(3)
+    expect(nodes["UG_t2"].adjacentNodes.length).toBe(1)
+    expect(nodes["UG_t3"].adjacentNodes.length).toBe(1)
+    expect(nodes["UG_t4"].adjacentNodes.length).toBe(1)
+
+    expect(nodes["UG_t4"].adjacentNodes[0].includes(isNotLit)).toBeTruthy()
+    expect(nodes["UG_t3"].adjacentNodes[0].includes(isLit)).toBeTruthy()
+    expect(nodes["UG_t2"].adjacentNodes[0].includes(isLit)).toBeTruthy()
+    expect(nodes["UG_t1"].adjacentNodes[0].includes(isLit)).toBeTruthy()
+    expect(nodes["UG_t1"].adjacentNodes[1].includes(isLit)).toBeTruthy()
+    expect(nodes["UG_t1"].adjacentNodes[2].includes(isNotLit)).toBeTruthy()
   })
 
   test('Should find a valid path', () => {
@@ -28,10 +37,9 @@ describe('Test prod export', () => {
     const productionGraph = graph.getProductionBuild();
 
     const newGraph = new IndoorGraphs(productionGraph, { routingOptions: {}, filter: {} })
-    console.log(newGraph)
     const [coordinates, path, instructions, error] = newGraph.getRoute('UG_t1', 'UG_t5');
 
-    console.log(path)
+    expect(path.length).toBe(3)
   })
 })
 

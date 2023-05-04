@@ -21,6 +21,7 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   const nodesArray: any = []
   let filteredNodes = nodes;
 
+
   if (Object.keys(options).length > 0) {
     filteredNodes = removeEdges(nodes, options, activeFilter)
   }
@@ -82,7 +83,7 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
   let copiedNodes = JSON.parse(JSON.stringify(nodes))
   const doorOptionsFiltered = doorOptions && Object.entries(doorOptions)
   const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
-
+   
   const idsToRemoveFromPathAttributes: string[] = []
   // remove elevator nodes if user preferred stairs over elevator
   !preferElevator && Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
@@ -136,31 +137,28 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
     })
   }
 
-  const pathAttributesLength = Object.keys(copiedNodes.pathAttributes).length
+  const pathAttributesLength = Object.keys(copiedNodes.pathAttributes).length;
   if (pathAttributesLength > 0 && pathOptions) {
 
     Object.entries(copiedNodes.nodes).map(([id, attributes]: any) => {
  
       attributes.adjacentNodes.map((adjacentNode: string) => {
-        console.log(adjacentNode)
-        const nodesPathAttributes = getNodesPathAttribute(id, adjacentNode, copiedNodes);
+        const nodesPathAttributes = adjacentNode.includes(":") ? getNodesPathAttribute(adjacentNode.split(":")[1], copiedNodes) : {}
 
-        if (Object.keys(nodesPathAttributes).length === 0 || !nodesPathAttributes) return;
-
+        // if (!nodesPathAttributes || Object.keys(nodesPathAttributes).length === 0) return;
         pathOptionsFiltered.map((option: any) => {
-          if (!nodesPathAttributes[option[0]]) return false
-
+          if (!nodesPathAttributes[option[0]]) return;
+          
           // skip attribute if user selected false;
-          if (activeFilter[option[0]] === false) {
-            return false
-          }
-
+          if (activeFilter[option[0]] === false) return;
+         
           // skip all nodes where the attribute is not set (= "undefined")
-          if (typeof nodesPathAttributes[option[0]] === "undefined") return false;
+          if (typeof nodesPathAttributes[option[0]] === "undefined") return;
        
           if (option[1].length === 2) {
             if (option[1][1] === 'max') {
               if (+nodesPathAttributes[option[0]] > +option[1][0]) {
+
                 // remove node from adjacentNodes
                 const filteredAdjacentNodes = copiedNodes.nodes[id].adjacentNodes.filter((nodeId: string) => nodeId !== adjacentNode);
                 copiedNodes.nodes[id].adjacentNodes = filteredAdjacentNodes;
@@ -180,9 +178,9 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
               }
             }
           }
-          
+         
           // remove all adjacencies where value is true
-          if (option[1] === false && (nodesPathAttributes[option[0]] === true)) {            
+          if (option[1] === false && (nodesPathAttributes[option[0]] === true)) {   
             // remove node from adjacentNodes
             const filteredAdjacentNodes = copiedNodes.nodes[id].adjacentNodes.filter((nodeId: string) => nodeId !== adjacentNode);
             copiedNodes.nodes[id].adjacentNodes = filteredAdjacentNodes;
@@ -190,7 +188,6 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
             // delete pathAttributes where both ids are present
             // copiedNodes = deletePathAttributesWhereBothIds(id, adjacentNode, copiedNodes);
           }
-
 
           // remove all adjacencies where value is false
           if (option[1] === true && (nodesPathAttributes[option[0]] === false)) {
@@ -201,89 +198,22 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
             // delete pathAttributes where both ids are present
             // copiedNodes = deletePathAttributesWhereBothIds(id, adjacentNode, copiedNodes);
           }
- 
-        })
+        })   
       })
     })
   }
 
-
   return copiedNodes
 }
 
-const getNodesPathAttribute = (nodeId: string, adjacentNodeId: string, copiedNodes: any) => {
+const getNodesPathAttribute = (pathAttributesId: string, copiedNodes: any) => {
   const pathAttributes = copiedNodes.pathAttributes;
-  let pathAttributesForBothIds:any = {};
+  let pathAttributesForBothIds:any = pathAttributes[pathAttributesId];
 
-  pathAttributes && Object.keys(pathAttributes).map((key) => {
-    if (key.includes(nodeId) && key.includes(adjacentNodeId)) {
-      pathAttributesForBothIds = pathAttributes[key]
-    }
-  })
+  // console.log(pathAttributesId, pathAttributes)
 
   return pathAttributesForBothIds
 }
-
-/*
-const combinePathAttributes = (graph: any) => {
-  // loop over path attributes and check if there a duplicates
-  const pathAttributes = graph.pathAttributes;
-  const nodes = graph.nodes;
-
-  Object.entries(pathAttributes).map(([pathId, attributesCurrent]) => {
-    // if pathId is already a valid pathAttributesId without a -
-    if (!pathId.includes("-")) return false;
-    const [nodeIdOne, nodeIdTwo] = pathId.split("-");
-
-    // hier jetzt für jede pathAttribtues nochmal über alle Pathattributes loopen 
-    Object.entries(pathAttributes).map(([pathIdNext, attributesNext]) => {
-      if (!pathIdNext.includes("-")) return false;
-      const [nodeIdOneNext, nodeIdTwoNext] = pathIdNext.split("-");
-
-      // skip if same path ids
-      if (pathId === pathIdNext) return false;
-  
-      if (equal(attributesCurrent, attributesNext)) {
-        // loop over pathAttributes to check if theres already an entry with the same attributes
-        let pathAttributesAreAlreadyPresent: any = { present: true, pathId: undefined };   
-             
-
-        Object.entries(pathAttributes).map(([pathIdCheck, attributesCheck]) => {
-          if (equal(attributesCurrent, attributesCheck)) pathAttributesAreAlreadyPresent = { present: true, pathId:  pathIdCheck };
-        })
-
-        
-        const pathAttributesId = pathAttributesAreAlreadyPresent.present ? pathAttributesAreAlreadyPresent.pathId : generateId(pathAttributes);
-        console.log(pathAttributesId)
-  
-        // create arrays
-        if (!Object(nodes[nodeIdOne]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdOne]["pathAttributesIds"] = []
-        if (!Object(nodes[nodeIdTwo]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdTwo]["pathAttributesIds"] = []
-        if (!Object(nodes[nodeIdOneNext]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdOneNext]["pathAttributesIds"] = []
-        if (!Object(nodes[nodeIdTwoNext]).hasOwnProperty("pathAttributesIds")) nodes[nodeIdTwoNext]["pathAttributesIds"] = []
-   
-        // add new pathAttributesId if its not already present 
-        if (Object(nodes[nodeIdOne]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdOne].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdOne].pathAttributesIds?.push(pathAttributesId) }
-        if (Object(nodes[nodeIdTwo]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdTwo].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdTwo].pathAttributesIds?.push(pathAttributesId) }
-        if (Object(nodes[nodeIdOneNext]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdOneNext].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdOneNext].pathAttributesIds?.push(pathAttributesId) }
-        if (Object(nodes[nodeIdTwoNext]).hasOwnProperty("pathAttributesIds")) { !nodes[nodeIdTwoNext].pathAttributesIds.includes(pathAttributesId) && nodes[nodeIdTwoNext].pathAttributesIds?.push(pathAttributesId) }
-  
-        // add new pathAttributesId
-        pathAttributes[pathAttributesId] = attributesCurrent;
-
-        // delete individual pathAttributes to save data
-        delete pathAttributes[pathId]
-        delete pathAttributes[pathIdNext]
-        
-      }
-    })
-  })
-
-  console.log(graph)
-  return graph
-}
-*/
-
 
 function combinePathAttributes(graph: any) {
   const nodes: any = graph.nodes;
@@ -314,7 +244,6 @@ function combinePathAttributes(graph: any) {
       delete pathAttributes[pathKey];
       const [node1Id, node2Id] = pathKey.split('-');
 
-      
       nodes[node1Id].adjacentNodes = nodes[node1Id].adjacentNodes.filter((nodeId: string) => nodeId !== node2Id)
       nodes[node2Id].adjacentNodes = nodes[node2Id].adjacentNodes.filter((nodeId: string) => nodeId !== node1Id)
 

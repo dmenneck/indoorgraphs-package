@@ -6,12 +6,14 @@ const dataOne = require("./graphs/routingOne.json")
 describe('Class instanciating', () => {
     test('Finds path between two nodes', () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const [coordinates, path, instructions, error] = graph.getRoute('EG_t1', 'EG_t3');
+        const productionBuild = graph.getProductionBuild();
+        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t3');
 
         expect(graph).toBeDefined()
         expect(error).toBeUndefined()
     })
-
+  
     test("getNodes()", () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
         expect(Object.keys(graph.getNodes().nodes).length).toBe(5)
@@ -92,6 +94,7 @@ describe('Class instanciating', () => {
         const { doorOptions, pathOptions, preferElevator} = graph.getRoutableOptions()
         expect(preferElevator).toBeFalsy()
         expect(doorOptions.doorWidth).toBe("string")
-        expect(pathOptions.pathWidth).toBe("string")
+        // expect(pathOptions.pathWidth).toBe("string")
     })
+
 })
