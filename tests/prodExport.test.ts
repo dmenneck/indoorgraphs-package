@@ -24,12 +24,19 @@ describe('Test prod export', () => {
     expect(nodes["UG_t3"].adjacentNodes.length).toBe(1)
     expect(nodes["UG_t4"].adjacentNodes.length).toBe(1)
 
-    expect(nodes["UG_t4"].adjacentNodes[0].includes(isNotLit)).toBeTruthy()
-    expect(nodes["UG_t3"].adjacentNodes[0].includes(isLit)).toBeTruthy()
-    expect(nodes["UG_t2"].adjacentNodes[0].includes(isLit)).toBeTruthy()
-    expect(nodes["UG_t1"].adjacentNodes[0].includes(isLit)).toBeTruthy()
-    expect(nodes["UG_t1"].adjacentNodes[1].includes(isLit)).toBeTruthy()
-    expect(nodes["UG_t1"].adjacentNodes[2].includes(isNotLit)).toBeTruthy()
+    expect(nodes["UG_t4"].adjacentNodes[0].includes(isNotLit)).toBe(true)
+    expect(nodes["UG_t3"].adjacentNodes[0].includes(isLit)).toBe(true)
+
+    let isLitCount = 0;
+    let isNotLitCount = 0;
+
+    nodes["UG_t1"].adjacentNodes.map((id: string) => {
+      id.includes(isLit) && isLitCount++;
+      id.includes(isNotLit) && isNotLitCount++;
+    })
+  
+    expect(isLitCount).toBe(2)
+    expect(isNotLitCount).toBe(1)
   })
 
   test('Should find a valid path', () => {

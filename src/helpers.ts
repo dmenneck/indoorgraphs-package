@@ -23,6 +23,7 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
 
 
   if (Object.keys(options).length > 0) {
+    // @ts-ignore
     filteredNodes = removeEdges(nodes, options, activeFilter)
   }
 
@@ -32,21 +33,23 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
   }
 
   for (const nodeID in filteredNodes.nodes) {
+
     const adjacentLinks: any = {}
-    const node = filteredNodes.nodes[nodeID.split(":")[0]]
-    
+
+    const node = nodeID?.includes(":") ? filteredNodes.nodes[nodeID.split(":")[0]] : filteredNodes.nodes[nodeID]
+
     if (node.adjacentNodes) {
       Object.entries(node.adjacentNodes).map((adjacentNode: any) => {
-        const dest = filteredNodes.nodes[adjacentNode[1].split(":")[0]]
- 
-        if (!dest) return false
 
+        const dest = adjacentNode[1]?.includes(":") ? filteredNodes.nodes[adjacentNode[1].split(":")[0]] : filteredNodes.nodes[adjacentNode[1]]
+        if (!dest) return false
+       
         const from = turf.point(node.currentCoordinates)
         const to = turf.point(dest.currentCoordinates)
 
         const distance = turf.distance(from, to, { units: 'meters' })
 
-        adjacentLinks[adjacentNode[1].split(":")[0]] = {
+        adjacentLinks[adjacentNode[1]?.includes(":") ? adjacentNode[1].split(":")[0] : adjacentNode[1]] = {
           distance,
           // direction: "east",
           // semantics: "go straight",
@@ -64,6 +67,8 @@ const buildGraph = (nodes: any, options: any, activeFilter: any) => {
       adjacentLinks
     })
   }
+
+  // console.log(nodesArray)
   
   return nodesArray
 }
@@ -83,7 +88,7 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
   let copiedNodes = JSON.parse(JSON.stringify(nodes))
   const doorOptionsFiltered = doorOptions && Object.entries(doorOptions)
   const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
-   
+     
   const idsToRemoveFromPathAttributes: string[] = []
   // remove elevator nodes if user preferred stairs over elevator
   !preferElevator && Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
@@ -276,9 +281,17 @@ const generateId = (pathAttributes: any) => {
  * combines all the same pathAttributes into one, to reduce graph size
  */
 const exportForProductionBuild = (graph: any) => {
-  const finalGraph = combinePathAttributes(graph)
+  const graphWithCombinedAttributes = combinePathAttributes(graph)
+  const finaleGraph = combineDoorAttributes(graphWithCombinedAttributes);
   // export for production
-  return finalGraph
+  return graphWithCombinedAttributes
+}
+
+const combineDoorAttributes = (graph: any) => {
+  // loop over doorAttributes and combine equal ones
+  ///////////
+  // HIER WEITER MACHEN! Danach GIS-to-graph + dann mit den erstellen Graphen test schreiben!
+  //////////
 }
 
 module.exports = { saveGraph, removeEdges, exportForProductionBuild }

@@ -1,13 +1,16 @@
 // const { IndoorGraphs } = require("indoorgraphs");
 const { IndoorGraphs } = require("./dist/index");
 const data = require("./tests/graphs/prodExportRouting.json")
+const test2 = require("./test.json")
 
-const graph = new IndoorGraphs(data, { routingOptions: {}, filter: {} });
+const graph = new IndoorGraphs(test2, { routingOptions: {}, filter: {} });
 
 const productionGraph = graph.getProductionBuild();
 
-const newGraph = new IndoorGraphs(productionGraph, { routingOptions: {
-    pathOptions: { pathWidth: ["9", "max"] }
-}, filter: {} })
+const newGraph = new IndoorGraphs(productionGraph, { routingOptions: {}, filter: {} })
 
-const [coordinates, path, instructions, error] = newGraph.getRoute('UG_t1', 'UG_t5');
+
+const [coordinates, path, instructions, error] = newGraph.getRoute('OD_1369', 'OD_1311');
+
+console.log(error, path)
+

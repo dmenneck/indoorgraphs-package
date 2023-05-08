@@ -194,10 +194,6 @@ module.exports = class IndoorGraphs {
       return this.constructErrorMessage(`No path found.`)
     }
 
-    // wenn nichts gefunden, dann fahrstuhl dazu packen!
-    // const graph = saveGraph(this.nodes, this.options);
-    // const shortestPath = getShortestPath(graph, `${start}`, `${dest}`)
-
     return shortestPath
   }
 
