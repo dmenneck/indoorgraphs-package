@@ -4,21 +4,14 @@ const { IndoorGraphs } = require('../dist/index');
 
 describe('Routing: Graph two', () => {
     test('Finds path between two nodes', () => {
-        const graph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {}, filter: {} });
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {}, filter: {} });
         const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t2');
         expect(error).toBeFalsy()
         expect(path.length).toBe(2)
     })
 
     test('Should find no valid nodes', () => {
-        const graph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
-            doorOptions: { isWellLit: true }
-        }, filter: {} });
-
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {
+        const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
             doorOptions: { isWellLit: true }
         }, filter: {}  });
 
@@ -28,10 +21,7 @@ describe('Routing: Graph two', () => {
     })
 
     test('Should find shortest path', () => {
-        const graph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {}, filter: {} });
-
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {}  });
+        const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {}, filter: {}  });
 
         const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t4');
         expect(error).toBeFalsy()
@@ -128,12 +118,8 @@ describe('Routing: Graph two', () => {
                 }
             }
         }
-        const graph = new IndoorGraphs(json, { routingOptions: {
-            pathOptions: { hasStairs: false }
-        }, filter: {} });
 
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {
+        const newGraph = new IndoorGraphs(json, { routingOptions: {
             pathOptions: { hasStairs: false }
         }, filter: {} });
 
@@ -144,12 +130,7 @@ describe('Routing: Graph two', () => {
     })
 
     test('Should find shortest path: stairs enabled', () => {
-        const graph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
-            pathOptions: { hasStairs: true }
-        }, filter: {} });
-
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {
+        const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
             pathOptions: { hasStairs: true }
         }, filter: {}   });
 
@@ -161,14 +142,7 @@ describe('Routing: Graph two', () => {
     })
 
     test('Should find shortest path: stairs disabled but filter off', () => {
-        const graph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
-            pathOptions: { hasStairs: false }
-        }, filter: {
-            hasStairs: false
-        } });
-
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {
+        const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
             pathOptions: { hasStairs: false }
         }, filter: {
             hasStairs: false
@@ -269,14 +243,8 @@ describe('Routing: Graph two', () => {
                 }
             }
         }
-        const graph = new IndoorGraphs(json, { routingOptions: {
-            pathOptions: { hasStairs: false }
-        }, filter: {
-            hasStairs: true
-        } });
 
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, {  routingOptions: {
+        const newGraph = new IndoorGraphs(json, {  routingOptions: {
             pathOptions: { hasStairs: false }
         }, filter: {
             hasStairs: true

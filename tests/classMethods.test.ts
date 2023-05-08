@@ -5,12 +5,10 @@ const dataOne = require("./graphs/routingOne.json")
 
 describe('Class instanciating', () => {
     test('Finds path between two nodes', () => {
-        const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const productionBuild = graph.getProductionBuild();
-        const newGraph = new IndoorGraphs(productionBuild, { routingOptions: {}, filter: {} });
+        const newGraph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
         const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t3');
 
-        expect(graph).toBeDefined()
+        expect(newGraph).toBeDefined()
         expect(error).toBeUndefined()
     })
   

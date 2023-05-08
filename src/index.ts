@@ -169,7 +169,11 @@ module.exports = class IndoorGraphs {
       return this.constructErrorMessage("Please enter a start and destination");
     }
 
-    const graph = saveGraph(this.nodes, this.options, this.filter);
+    // get production build
+    const exportGraph = exportForProductionBuild(this.nodes);
+
+    // 
+    const graph = saveGraph(exportGraph, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {
       // console.log(`Node ${start} is not present in the graph.`);

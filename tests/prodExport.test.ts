@@ -40,10 +40,7 @@ describe('Test prod export', () => {
   })
 
   test('Should find a valid path', () => {
-    const graph = new IndoorGraphs(data2, { routingOptions: {}, filter: {} });
-    const productionGraph = graph.getProductionBuild();
-
-    const newGraph = new IndoorGraphs(productionGraph, { routingOptions: {}, filter: {} })
+    const newGraph = new IndoorGraphs(data2, { routingOptions: {}, filter: {} })
     const [coordinates, path, instructions, error] = newGraph.getRoute('UG_t1', 'UG_t5');
 
     expect(path.length).toBe(3)
