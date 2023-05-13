@@ -12,7 +12,7 @@ describe('Routing: Graph two', () => {
 
     test('Should find no valid nodes', () => {
         const newGraph = new IndoorGraphs(require("./graphs/routingTwo.json"), { routingOptions: {
-            doorOptions: { isWellLit: true }
+            attributes: { isWellLit: true }
         }, filter: {}  });
 
         const [coordinates, path, instructions, error] = newGraph.getRoute('EG_t1', 'EG_t2');
@@ -38,7 +38,7 @@ describe('Routing: Graph two', () => {
                         6.93957671090673,
                         50.939350753943216
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t1",
@@ -54,7 +54,7 @@ describe('Routing: Graph two', () => {
                         6.946505543180664,
                         50.941262250870466
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t2",
@@ -71,7 +71,7 @@ describe('Routing: Graph two', () => {
                         6.946244900941135,
                         50.938247080639684
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t3",
@@ -88,7 +88,7 @@ describe('Routing: Graph two', () => {
                         6.94962923947096,
                         50.940506023209394
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t4",
@@ -163,7 +163,7 @@ describe('Routing: Graph two', () => {
                         6.93957671090673,
                         50.939350753943216
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t1",
@@ -179,7 +179,7 @@ describe('Routing: Graph two', () => {
                         6.946505543180664,
                         50.941262250870466
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t2",
@@ -196,7 +196,7 @@ describe('Routing: Graph two', () => {
                         6.946244900941135,
                         50.938247080639684
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t3",
@@ -213,7 +213,7 @@ describe('Routing: Graph two', () => {
                         6.94962923947096,
                         50.940506023209394
                     ],
-                    "doorOptions": {
+                    "attributes": {
                         "isWellLit": false
                     },
                     "id": "EG_t4",

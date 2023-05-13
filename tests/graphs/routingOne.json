@@ -5,7 +5,7 @@
                 6.941962423193652,
                 50.94713474825744
             ],
-            "doorOptions": {},
+            "attributes": {},
             "id": "EG_t1",
             "type": "Node",
             "level": "EG",
@@ -19,7 +19,7 @@
                 6.95561996432432,
                 50.947109852057906
             ],
-            "doorOptions": {},
+            "attributes": {},
             "id": "EG_t2",
             "type": "Elevator",
             "level": "EG",
@@ -47,7 +47,7 @@
                 6.942328652117318,
                 50.944791628390846
             ],
-            "doorOptions": {
+            "attributes": {
                 "doorWidth": "40"
             },
             "id": "EG_t3",
@@ -63,7 +63,7 @@
                 6.942816227424807,
                 50.94232167852843
             ],
-            "doorOptions": {},
+            "attributes": {},
             "id": "EG_t4",
             "type": "Node",
             "level": "EG",

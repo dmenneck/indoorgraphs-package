@@ -84,9 +84,9 @@ const deletePathAttributesWhereId = (id: string, copiedNodes: any) => {
   return copiedNodes
 }
 
-const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: any, activeFilter: any) => {
+const removeEdges = (nodes: any, { attributes, pathOptions, preferElevator }: any, activeFilter: any) => {
   let copiedNodes = JSON.parse(JSON.stringify(nodes))
-  const doorOptionsFiltered = doorOptions && Object.entries(doorOptions)
+  const attributesFiltered = attributes && Object.entries(attributes)
   const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
      
   const idsToRemoveFromPathAttributes: string[] = []
@@ -101,13 +101,13 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
   })
 
   // remove nodes based on door filters
-  if (doorOptions && Object.keys(doorOptions).length > 0) {
+  if (attributes && Object.keys(attributes).length > 0) {
     Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
 
-      const doorOptions = node.doorOptions
-      if (!doorOptions) return
+      const attributes = node.attributes
+      if (!attributes) return
 
-      doorOptions && doorOptionsFiltered.map((filterOption: any) => {
+      attributes && attributesFiltered.map((filterOption: any) => {
         // skip attribute if user selected false;
         // "this attribute should not be included in the querying"
         if (activeFilter[filterOption[0]] === false) {
@@ -119,21 +119,21 @@ const removeEdges = (nodes: any, { doorOptions, pathOptions, preferElevator }: a
         if (filterOption[1].length === 2) {
           if (filterOption[1][1] === 'max') {
             // console.log(copiedNodes)
-            if (+doorOptions[filterOption[0]] > +filterOption[1][0]) {
+            if (+attributes[filterOption[0]] > +filterOption[1][0]) {
               delete copiedNodes.nodes[id]
               // delete node from pathAttributes
               copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
             }
           }
           if (filterOption[1][1] === 'min') {
-            if (+doorOptions[filterOption[0]] < +filterOption[1][0]) {
+            if (+attributes[filterOption[0]] < +filterOption[1][0]) {
               delete copiedNodes.nodes[id]
               // delete node from pathAttributes
               copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
             }
           }
           // filterOption is a boolean
-        } else if (doorOptions[filterOption[0]] !== filterOption[1]) {
+        } else if (attributes[filterOption[0]] !== filterOption[1]) {
           delete copiedNodes.nodes[id]
           // delete node from pathAttributes
           copiedNodes = deletePathAttributesWhereId(id, copiedNodes);
@@ -281,17 +281,60 @@ const generateId = (pathAttributes: any) => {
  * combines all the same pathAttributes into one, to reduce graph size
  */
 const exportForProductionBuild = (graph: any) => {
-  const graphWithCombinedAttributes = combinePathAttributes(graph)
-  const finaleGraph = combineDoorAttributes(graphWithCombinedAttributes);
+  const graphWithCombinedPathAttributes = combinePathAttributes(graph)
+  const combinedNodeAttributes = combineNodeAttributes(graphWithCombinedPathAttributes);
+  // @ts-ignore
+  graphWithCombinedPathAttributes["nodeAttributes"] = combinedNodeAttributes;
+
   // export for production
-  return graphWithCombinedAttributes
+  return graphWithCombinedPathAttributes
 }
 
-const combineDoorAttributes = (graph: any) => {
-  // loop over doorAttributes and combine equal ones
+const combineNodeAttributes = (graph: any) => {
+  const nodes: any = graph.nodes;
+  const combined: any = {};
+
+  // create combined Attributes object
+  for (const [nodeId, attr] of Object.entries(nodes)) {
+    const attributes: any = attr;
+    const nodeAttributes: any = attributes.attributes;
+
+    if (!nodeAttributes) continue;
+
+    if (Object.keys(combined).length === 0) combined[generateId(nodeAttributes)] = nodeAttributes; 
+  
+    let isThereAnEqualAttributes = false;
+
+    Object.entries(combined).map(([id, attributes]) => {
+      if (equal(attributes, nodeAttributes)) {
+        isThereAnEqualAttributes = true;
+      }
+    })
+
+    if (!isThereAnEqualAttributes) {
+      combined[generateId(nodeAttributes)] = nodeAttributes;      
+    }
+  }
+
+  // add combineAttributes id to attributes of node
+  for (const [nodeId, attr] of Object.entries(nodes)) {
+    const attributes: any = attr;
+    const nodeAttributes: any = attributes.attributes;
+
+    Object.entries(combined).map(([id, attributes]) => {
+      if (equal(attributes, nodeAttributes)) {
+        nodes[nodeId].attributes = id
+      }
+    })
+  }
+
+  return combined;
+
+  // loop over attributes and combine equal ones
   ///////////
   // HIER WEITER MACHEN! Danach GIS-to-graph + dann mit den erstellen Graphen test schreiben!
   //////////
+
 }
 
 module.exports = { saveGraph, removeEdges, exportForProductionBuild }

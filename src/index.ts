@@ -7,11 +7,11 @@ interface NodeInterface {
   type: string;
   level: string;
   adjacentNodes?: object;
-  doorOptions?: object;
+  attributes?: object;
 }
 
 interface DefaultRoutingOptions {
-  doorOptions: object;
+  attributes: object;
   pathOptions: object;
   preferElevator: boolean;
   [key: string]: any
@@ -22,7 +22,7 @@ interface Nodes {
 }
 
 const defaultRoutingOptions: DefaultRoutingOptions = {
-  doorOptions: {},
+  attributes: {},
   pathOptions: {},
   preferElevator: false
 }
@@ -85,7 +85,7 @@ module.exports = class IndoorGraphs {
     }
 
     // add default object if user didn't provide the objects
-    if (!routingOptions.hasOwnProperty("doorOptions")) routingOptions.doorOptions = {};
+    if (!routingOptions.hasOwnProperty("attributes")) routingOptions.attributes = {};
     if (!routingOptions.hasOwnProperty("pathOptions")) routingOptions.pathOptions = {}
     if (!routingOptions.hasOwnProperty("preferElevator")) routingOptions.preferElevator = true;
     
@@ -113,16 +113,16 @@ module.exports = class IndoorGraphs {
   // returns all the attributes present in the graph
   // these can be utilized to request accessible paths
   getRoutableOptions () {
-    const doorOptions: any = {};
+    const attributes: any = {};
     let pathOptions: any = {};
     const preferElevator = false;
 
-    // extract doorOptions
+    // extract attributes
     Object.entries(this.nodes).map(([_, nodes]) => {
       Object.entries(nodes).map(([id, attributes]) => {
-        for (let key in attributes.doorOptions) {
-          if (!doorOptions.hasOwnProperty(key)) {
-            doorOptions[key] = typeof attributes.doorOptions[key] === "boolean" ? "boolean" : "string";
+        for (let key in attributes.attributes) {
+          if (!attributes.hasOwnProperty(key)) {
+            attributes[key] = typeof attributes.attributes[key] === "boolean" ? "boolean" : "string";
           }
         }  
       })
@@ -139,7 +139,7 @@ module.exports = class IndoorGraphs {
       })
     })
   
-    return { doorOptions, pathOptions, preferElevator }
+    return { attributes, pathOptions, preferElevator }
   }
 
   getFilter () {
@@ -172,7 +172,7 @@ module.exports = class IndoorGraphs {
     // get production build
     const exportGraph = exportForProductionBuild(this.nodes);
 
-    // 
+    // save graph
     const graph = saveGraph(exportGraph, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {

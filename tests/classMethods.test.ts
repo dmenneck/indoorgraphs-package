@@ -45,9 +45,9 @@ describe('Class instanciating', () => {
 
     test("getOptions: no options provided", () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
-        const { doorOptions, pathOptions, preferElevator } = graph.getOptions()
+        const { attributes, pathOptions, preferElevator } = graph.getOptions()
 
-        expect(Object.keys(doorOptions).length).toBe(0)
+        expect(Object.keys(attributes).length).toBe(0)
         expect(Object.keys(pathOptions).length).toBe(0)
         expect(preferElevator).toBeTruthy()
     })
@@ -57,15 +57,15 @@ describe('Class instanciating', () => {
 
         graph.setOptions({
             routingOptions: {
-                doorOptions: { doorWidth: 40, isWellLit: true },
+                attributes: { doorWidth: 40, isWellLit: true },
                 pathOptions: { pathWidth: 80, pathSlope: 4 }
             },
             preferElevator: false
         })
 
         const { routingOptions, preferElevator } = graph.getOptions()
-        expect(routingOptions.doorOptions.doorWidth).toBe(40)
-        expect(routingOptions.doorOptions.isWellLit).toBeTruthy()
+        expect(routingOptions.attributes.doorWidth).toBe(40)
+        expect(routingOptions.attributes.isWellLit).toBeTruthy()
         expect(routingOptions.pathOptions.pathWidth).toBe(80)
         expect(routingOptions.pathOptions.pathSlope).toBe(4)
         expect(preferElevator).toBeFalsy()
@@ -89,9 +89,9 @@ describe('Class instanciating', () => {
     test("getRoutableOptions()", () => {
         const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
 
-        const { doorOptions, pathOptions, preferElevator} = graph.getRoutableOptions()
+        const { attributes, pathOptions, preferElevator} = graph.getRoutableOptions()
         expect(preferElevator).toBeFalsy()
-        expect(doorOptions.doorWidth).toBe("string")
+        expect(attributes.doorWidth).toBe("string")
         // expect(pathOptions.pathWidth).toBe("string")
     })
 

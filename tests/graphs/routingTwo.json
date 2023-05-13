@@ -5,7 +5,7 @@
                 6.93957671090673,
                 50.939350753943216
             ],
-            "doorOptions": {
+            "attributes": {
                 "isWellLit": false
             },
             "id": "EG_t1",
@@ -21,7 +21,7 @@
                 6.946505543180664,
                 50.941262250870466
             ],
-            "doorOptions": {
+            "attributes": {
                 "isWellLit": false
             },
             "id": "EG_t2",
@@ -38,7 +38,7 @@
                 6.946244900941135,
                 50.938247080639684
             ],
-            "doorOptions": {
+            "attributes": {
                 "isWellLit": false
             },
             "id": "EG_t3",
@@ -55,7 +55,7 @@
                 6.94962923947096,
                 50.940506023209394
             ],
-            "doorOptions": {
+            "attributes": {
                 "isWellLit": false
             },
             "id": "EG_t4",

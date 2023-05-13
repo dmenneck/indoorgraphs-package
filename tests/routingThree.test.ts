@@ -14,7 +14,7 @@ describe('Routing: Graph three', () => {
     
     test('doorWidth min -> path', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["19", "min"]
             }
         }, filter: {} });
@@ -26,7 +26,7 @@ describe('Routing: Graph three', () => {
 
     test('doorWidth min -> path', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["21", "min"]
             }
         }, filter: {} });
@@ -37,7 +37,7 @@ describe('Routing: Graph three', () => {
 
     test('doorWidth max -> path', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["21", "max"]
             }
         }, filter: {} });
@@ -49,7 +49,7 @@ describe('Routing: Graph three', () => {
 
     test('doorWidth max -> path', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["19", "max"]
             }
         }, filter: {} });
@@ -61,7 +61,7 @@ describe('Routing: Graph three', () => {
 
     test('doorWidth max + filter off', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["19", "max"]
             }
         }, filter: {
@@ -75,7 +75,7 @@ describe('Routing: Graph three', () => {
 
     test('doorWidth min + filter off', () => {
         const newGraph = new IndoorGraphs(dataThree, { routingOptions: {
-            doorOptions: {
+            attributes: {
                 doorWidth: ["21", "min"]
             }
         }, filter: {

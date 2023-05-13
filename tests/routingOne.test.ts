@@ -62,7 +62,7 @@ describe('Routing', () => {
     test('Door: max', () => {
         const routingOptions = {
             pathOptions: {},
-            doorOptions: { doorWidth: ["30", "max"] },
+            attributes: { doorWidth: ["30", "max"] },
             preferElevator: true
         }
         
@@ -84,7 +84,7 @@ describe('Routing', () => {
     test('Door: max', () => {
         const routingOptions = {
             pathOptions: {},
-            doorOptions: { doorWidth: ["50", "max"] },
+            attributes: { doorWidth: ["50", "max"] },
         }
         
         const filter = {} 
@@ -99,7 +99,7 @@ describe('Routing', () => {
     test('Door: min', () => {
         const routingOptions = {
             pathOptions: {},
-            doorOptions: { doorWidth: ["30", "min"] },
+            attributes: { doorWidth: ["30", "min"] },
         }
         
         const filter = {} 
@@ -115,7 +115,7 @@ describe('Routing', () => {
     test('Door: min -> use elevator', () => {
         const routingOptions = {
             pathOptions: {},
-            doorOptions: { doorWidth: ["41", "min"] },
+            attributes: { doorWidth: ["41", "min"] },
             // preferElevator: true
         }
         
@@ -135,7 +135,7 @@ describe('Routing', () => {
     test('Door: min -> use stairs', () => {
         const routingOptions = {
             pathOptions: {},
-            doorOptions: { doorWidth: ["39", "min"] },
+            attributes: { doorWidth: ["39", "min"] },
         }
         
         const filter = {} 
