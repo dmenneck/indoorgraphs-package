@@ -113,33 +113,40 @@ module.exports = class IndoorGraphs {
   // returns all the attributes present in the graph
   // these can be utilized to request accessible paths
   getRoutableOptions () {
-    const attributes: any = {};
+    const nodeAttributesOptions: any = {};
+    const pathAttributesOptions: any = {};
+
     let pathOptions: any = {};
     const preferElevator = false;
 
-    // extract attributes
-    Object.entries(this.nodes).map(([_, nodes]) => {
-      Object.entries(nodes).map(([id, attributes]) => {
-        for (let key in attributes.attributes) {
-          if (!attributes.hasOwnProperty(key)) {
-            attributes[key] = typeof attributes.attributes[key] === "boolean" ? "boolean" : "string";
-          }
-        }  
-      })
-   
-      // extract pathOptions
-      Object.entries(this.nodes.pathAttributes).map(([_, pathAttributes]) => {
-        Object.entries(pathAttributes).map(([key, val]) => {
-          if (key && !pathOptions.hasOwnProperty(key)) {
-   
-            // add key to obj
-            pathOptions = {...pathOptions, [key]: typeof val === "boolean" ? "boolean" : "string"}
-          }
-        })
-      })
+    // @ts-ignore
+    const prod = this.getProductionBuild();
+    const nodeAttributes = prod.nodeAttributes;
+    const pathAttributes = prod.pathAttributes;
+
+    // extract nodeAttributes
+    Object.entries(nodeAttributes).map(([id, attributes]) => {
+      // @ts-ignore
+      for (let key in attributes) {
+        if (!nodeAttributesOptions.hasOwnProperty(key)) {
+          // @ts-ignore
+          nodeAttributesOptions[key] = typeof attributes[key] === "boolean" ? "boolean" : "string";
+        }
+      }    
+    })
+
+    // extract pathAttributes
+    Object.entries(pathAttributes).map(([id, attributes]) => {
+      // @ts-ignore
+      for (let key in attributes) {
+        if (!pathAttributesOptions.hasOwnProperty(key)) {
+          // @ts-ignore
+          pathAttributesOptions[key] = typeof attributes[key] === "boolean" ? "boolean" : "string";
+        }
+      }    
     })
   
-    return { attributes, pathOptions, preferElevator }
+    return { nodeAttributesOptions, pathAttributesOptions, preferElevator }
   }
 
   getFilter () {
@@ -176,7 +183,6 @@ module.exports = class IndoorGraphs {
     const graph = saveGraph(exportGraph, this.options, this.filter);
 
     if (!this.isNodeValid(graph, start)) {
-      // console.log(`Node ${start} is not present in the graph.`);
       return this.constructErrorMessage(`Node ${start} is not present in the graph.`)
     }
 

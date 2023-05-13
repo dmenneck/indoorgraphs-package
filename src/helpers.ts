@@ -87,7 +87,8 @@ const deletePathAttributesWhereId = (id: string, copiedNodes: any) => {
 const removeEdges = (nodes: any, { attributes, pathOptions, preferElevator }: any, activeFilter: any) => {
   let copiedNodes = JSON.parse(JSON.stringify(nodes))
   const attributesFiltered = attributes && Object.entries(attributes)
-  const pathOptionsFiltered = pathOptions && Object.entries(pathOptions)
+  const pathOptionsFiltered = pathOptions && Object.entries(pathOptions);
+  const nodeAttributes = nodes.nodeAttributes;
      
   const idsToRemoveFromPathAttributes: string[] = []
   // remove elevator nodes if user preferred stairs over elevator
@@ -104,8 +105,8 @@ const removeEdges = (nodes: any, { attributes, pathOptions, preferElevator }: an
   if (attributes && Object.keys(attributes).length > 0) {
     Object.entries(copiedNodes.nodes).map(([id, node]: any) => {
 
-      const attributes = node.attributes
-      if (!attributes) return
+      const attributes = nodeAttributes[node.attributes];
+      if (!attributes || Object.keys(attributes).length === 0) return;
 
       attributes && attributesFiltered.map((filterOption: any) => {
         // skip attribute if user selected false;
@@ -215,8 +216,6 @@ const getNodesPathAttribute = (pathAttributesId: string, copiedNodes: any) => {
   const pathAttributes = copiedNodes.pathAttributes;
   let pathAttributesForBothIds:any = pathAttributes[pathAttributesId];
 
-  // console.log(pathAttributesId, pathAttributes)
-
   return pathAttributesForBothIds
 }
 
@@ -311,7 +310,7 @@ const combineNodeAttributes = (graph: any) => {
       }
     })
 
-    if (!isThereAnEqualAttributes) {
+    if (!isThereAnEqualAttributes && Object.keys(nodeAttributes).length > 0) {
       combined[generateId(nodeAttributes)] = nodeAttributes;      
     }
   }
@@ -329,12 +328,6 @@ const combineNodeAttributes = (graph: any) => {
   }
 
   return combined;
-
-  // loop over attributes and combine equal ones
-  ///////////
-  // HIER WEITER MACHEN! Danach GIS-to-graph + dann mit den erstellen Graphen test schreiben!
-  //////////
-
 }
 
 module.exports = { saveGraph, removeEdges, exportForProductionBuild }

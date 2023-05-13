@@ -1,0 +1,83 @@
+{
+    "nodes": {
+        "UG_t1": {
+            "currentCoordinates": [
+                6.930579514487795,
+                50.94619594305047
+            ],
+            "id": "UG_t1",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "22"
+            }
+        },
+        "UG_t2": {
+            "currentCoordinates": [
+                6.928813831223557,
+                50.93878231380424
+            ],
+            "id": "UG_t2",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "22"
+            }
+        },
+        "UG_t3": {
+            "currentCoordinates": [
+                6.946138874086934,
+                50.94839435213842
+            ],
+            "id": "UG_t3",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "22"
+            }
+        },
+        "UG_t4": {
+            "currentCoordinates": [
+                6.941392545455052,
+                50.94516733639003
+            ],
+            "id": "UG_t4",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "1"
+            }
+        },
+        "UG_t5": {
+            "currentCoordinates": [
+                6.943370525300885,
+                50.94105978590298
+            ],
+            "id": "UG_t5",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "1"
+            }
+        },
+        "UG_t6": {
+            "currentCoordinates": [
+                6.956283040968152,
+                50.94409628035112
+            ],
+            "id": "UG_t6",
+            "type": "Building entrance",
+            "level": "UG",
+            "adjacentNodes": [],
+            "attributes": {
+                "doorWidth": "200"
+            }
+        }
+    },
+    "pathAttributes": {}
+}

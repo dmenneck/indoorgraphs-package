@@ -86,13 +86,185 @@ describe('Class instanciating', () => {
         expect(graph.getFilter().isWellLit).toBeFalsy()
     })
 
-    test("getRoutableOptions()", () => {
-        const graph = new IndoorGraphs(dataOne, { routingOptions: {}, filter: {} });
+    test("getRoutableOptions() attributes", () => {
+        const data = {
+            "nodes": {
+                "EG_t1": {
+                    "currentCoordinates": [
+                        6.941962423193652,
+                        50.94713474825744
+                    ],
+                    "attributes": {},
+                    "id": "EG_t1",
+                    "type": "Node",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t2",
+                        "EG_t3"
+                    ]
+                },
+                "EG_t2": {
+                    "currentCoordinates": [
+                        6.95561996432432,
+                        50.947109852057906
+                    ],
+                    "attributes": {},
+                    "id": "EG_t2",
+                    "type": "Elevator",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t1",
+                        "OG1_t2"
+                    ]
+                },
+                "OG1_t2": {
+                    "currentCoordinates": [
+                        6.95561996432432,
+                        50.947109852057906
+                    ],
+                    "id": "OG1_t2",
+                    "type": "Elevator",
+                    "dest": "OG1",
+                    "level": "OG1",
+                    "adjacentNodes": [
+                        "EG_t2",
+                        "EG_t4"
+                    ]
+                },
+                "EG_t3": {
+                    "currentCoordinates": [
+                        6.942328652117318,
+                        50.944791628390846
+                    ],
+                    "attributes": {
+                        "doorWidth": "40"
+                    },
+                    "id": "EG_t3",
+                    "type": "Room entrance",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t1",
+                        "EG_t4"
+                    ]
+                },
+                "EG_t4": {
+                    "currentCoordinates": [
+                        6.942816227424807,
+                        50.94232167852843
+                    ],
+                    "attributes": {},
+                    "id": "EG_t4",
+                    "type": "Node",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t3",
+                        "OG1_t2"
+                    ]
+                }
+            },
+            "pathAttributes": {}
+        }
+        
+        const graph = new IndoorGraphs(data, { routingOptions: {}, filter: {} });
 
-        const { attributes, pathOptions, preferElevator} = graph.getRoutableOptions()
+        const { nodeAttributesOptions, pathAttributesOptions, preferElevator } = graph.getRoutableOptions()
         expect(preferElevator).toBeFalsy()
-        expect(attributes.doorWidth).toBe("string")
-        // expect(pathOptions.pathWidth).toBe("string")
+        expect(nodeAttributesOptions.doorWidth).toBe("string")
     })
 
+    test("getRoutableOptions() path Attributes", () => {
+        const data = {
+            "nodes": {
+                "EG_t1": {
+                    "currentCoordinates": [
+                        6.93957671090673,
+                        50.939350753943216
+                    ],
+                    "attributes": {
+                        "isWellLit": false
+                    },
+                    "id": "EG_t1",
+                    "type": "Room entrance",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t2",
+                        "EG_t3"
+                    ]
+                },
+                "EG_t2": {
+                    "currentCoordinates": [
+                        6.946505543180664,
+                        50.941262250870466
+                    ],
+                    "attributes": {
+                        "isWellLit": false
+                    },
+                    "id": "EG_t2",
+                    "type": "Node",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t1",
+                        "EG_t3",
+                        "EG_t4"
+                    ]
+                },
+                "EG_t3": {
+                    "currentCoordinates": [
+                        6.946244900941135,
+                        50.938247080639684
+                    ],
+                    "attributes": {
+                        "isWellLit": false
+                    },
+                    "id": "EG_t3",
+                    "type": "Node",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t1",
+                        "EG_t2",
+                        "EG_t4"
+                    ]
+                },
+                "EG_t4": {
+                    "currentCoordinates": [
+                        6.94962923947096,
+                        50.940506023209394
+                    ],
+                    "attributes": {
+                        "isWellLit": false
+                    },
+                    "id": "EG_t4",
+                    "type": "Node",
+                    "level": "EG",
+                    "adjacentNodes": [
+                        "EG_t2",
+                        "EG_t3"
+                    ]
+                }
+            },
+            "pathAttributes": {
+                "EG_t2-EG_t1": {
+                    "hasStairs": true
+                },
+                "EG_t3-EG_t2": {
+                    "hasStairs": false
+                },
+                "EG_t3-EG_t1": {
+                    "hasStairs": false
+                },
+                "EG_t4-EG_t2": {
+                    "hasStairs": false
+                },
+                "EG_t4-EG_t3": {
+                    "hasStairs": true
+                }
+            }
+        }
+     
+        const graph = new IndoorGraphs(data, { routingOptions: {}, filter: {} });
+
+        const { nodeAttributesOptions, pathAttributesOptions, preferElevator } = graph.getRoutableOptions()
+        expect(pathAttributesOptions).toBeDefined()
+        expect(pathAttributesOptions.hasStairs).toBe("boolean")
+    })
 })
